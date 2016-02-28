@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="/WEB-INF/templates/Layout.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <f:metadata>
+        <f:viewParam name="pendencia" value="#{pendenciaBean.pendencia}"/>
+    </f:metadata>
+
+    <ui:define name="content">
+        <h:form id="formCadastroPendencia" style="margin-top: 80px">
+            <p:growl autoUpdate="false"/>
+            <p:fieldset legend="Cadastro de pendências" >
+
+                <p:panelGrid columns="2" layout="grid" styleClass="panelgrid-noborder"
+                             columnClasses="ui-grid-col-2, ui-grid-col-10">
+
+                    <p:outputLabel for="descricao" value="Descrição: "/>
+                    <p:inputText id="descricao" value="#{pendenciaBean.pendencia.descricao}" size="50"/>
+
+                    <p:outputLabel for="localizacao" value="Localização: "/>
+                    <h:panelGroup>
+                        <p:selectOneMenu id="localizacao" value="#{pendenciaBean.pendencia.localizacaoFisica}" style="width: 312px; z-index: 8;">
+                            <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
+                            <f:selectItems var="pendencia" value="#{pendenciaBean.localizacoesFisicas}" itemValue="#{pendencia}" 
+                                           itemLabel="#{pendencia.descricao}"/>
+                            <f:ajax execute="localizacao" render="panelOutraLocalizacao"/>
+                        </p:selectOneMenu>
+
+                        <h:panelGroup id="panelOutraLocalizacao" layout="block">
+                            <p:inputText id="outraLocalizacao" size="50" value="#{pendenciaBean.pendencia.outraLocalizacao}"
+                                         rendered="#{pendenciaBean.pendencia.localizacaoFisica eq 'OUTRO'}"/>
+                        </h:panelGroup>
+
+                    </h:panelGroup>
+
+                    <p:outputLabel for="dataRecebimento" value="Data de recebimento: "/>
+                    <h:panelGroup>
+                        <p:calendar id="dataRecebimento" value="#{pendenciaBean.pendencia.dataRecebimentoSecretaria}"
+                                    mask="true" effect="fade" pattern="dd/MM/yyyy" yearRange="c-150:c+0" size="8" locale="pt">
+                            <f:convertDateTime type="date" locale="pt_BR" pattern="dd/MM/yyyy"/>
+                        </p:calendar>
+
+                        <p:outputLabel for="remetente" value="Remetente: " style="margin-left: 5px"/>
+                        <p:inputText id="remetente" value="#{pendenciaBean.pendencia.remetente}" maxlength="255"
+                                     style="margin-left: 7px"/>
+                    </h:panelGroup>
+
+                    <p:outputLabel for="dataEntrega" value="Data de entrega: "/>
+                    <h:panelGroup>
+                        <p:calendar id="dataEntrega" value="#{pendenciaBean.pendencia.dataEntregaDestinatario}"
+                                    mask="true" effect="fade" pattern="dd/MM/yyyy" yearRange="c-150:c+0" size="8" locale="pt">
+                            <f:convertDateTime type="date" locale="pt_BR" pattern="dd/MM/yyyy"/>
+                        </p:calendar>
+
+                        <p:outputLabel for="destinatario" value="Destinatário: " style="margin-left: 5px"/>
+                        <p:inputText id="destinatario" value="#{pendenciaBean.pendencia.destinatario}" maxlength="50"/>
+
+                    </h:panelGroup>
+
+                    <p:outputLabel for="observacoes" value="Observações: "/>
+                    <p:inputTextarea id="observacoes" autoResize="false" value="#{pendenciaBean.pendencia.observacoes}" 
+                                     rows="3" cols="53"/>
+
+                </p:panelGrid>
+
+                <p:toolbar id="toolbarPendencia" style="margin-top: 10px">
+                    <f:facet name="left">
+                        <p:commandButton style="font-size: 13px;" value="Salvar" action="#{pendenciaBean.salvar}" 
+                                         update="@form" icon="ui-icon ui-icon-disk" id="botaoSalvar">
+                        </p:commandButton>
+
+                        <p:button style="font-size: 13px;" value="Cancelar"
+                                  id="botaoCancelar" outcome="/pendencia/PesquisaPendencia"
+                                  icon="fa fa-times" rendered="#{pendenciaBean.editando}" 
+                                  disabled="#{botaoEditar}">
+                        </p:button>
+
+                    </f:facet>
+
+                    <f:facet name="right">
+                        <p:button style="font-size: 13px;" value="Consultar"
+                                  id="botaoPesquisar" outcome="/pendencia/PesquisaPendencia"
+                                  icon="ui-icon ui-icon-search" rendered="#{pendenciaBean.editando eq 'false'}">
+                        </p:button>
+                    </f:facet>
+                </p:toolbar>
+            </p:fieldset>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

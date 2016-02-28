@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="UAEDUCPU" transaction-type="JTA">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <jta-data-source>jdbc/uaeduc</jta-data-source>
+    <class>br.com.cassioliveira.ufcg.cdsa.uaeduc.model.Pendencia</class>
+    <class>br.com.cassioliveira.ufcg.cdsa.uaeduc.model.Professor</class>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <properties>
+      <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+      <property name="eclipselink.logging.level" value="FINE"/>
+      <property name="eclipselink.logging.logger" value="DefaultLogger"/>
+      <property name="eclipselink.logging.session" value="true"/>
+      <!--Cria as tabelas de pais, cidades e estados, caso não existam e as populam com os dados relacionados para o Brasil.-->
+      <!--<property name="javax.persistence.sql-load-script-source" value="META-INF/sql/CidadesEstadosBrasil.sql"/>-->
+    </properties>
+  </persistence-unit>
+</persistence>

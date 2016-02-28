@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="/WEB-INF/templates/Layout.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <ui:define name="content">
+        <h:form id="formPesquisaPendencia"  style="margin-top: 80px">
+            <p:fieldset legend="Consulta de pendências">
+
+                <p:growl id="mensagens" autoUpdate="true"/>
+
+                <p:toolbar >
+                    <f:facet name="right">
+                        <p:button value="Novo cadastro" id="botaoTelaCadastro"  icon="ui-icon ui-icon-pencil" 
+                                  outcome="/pendencia/CadastroPendencia"/>
+                    </f:facet>
+                </p:toolbar>
+
+                <p:dataTable id="datatablePesquisaPendencia" var="pendencia" value="#{pendenciaBean.pendencias}"
+                             paginatorAlwaysVisible="false" style="margin-top: 1px; " rows="10" 
+                             paginatorPosition="bottom" emptyMessage="Nenhum registro encontrado" paginator="true" widgetVar="pesquisaPendencia"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} 
+                             {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,20,50,100"
+                             scrollable="true" scrollRows="10" scrollHeight="290">
+
+                    <f:facet name="header">
+                        <p:outputPanel id="panelFiltroPendencia">
+                            <p:inputText id="globalFilter" onkeyup="PF('pesquisaPendencia').filter()" style="width:300px" placeholder="Pesquise na tabela..."/>
+                        </p:outputPanel>
+                    </f:facet>
+
+                    <p:column headerText="Descrição" width="60" filterMatchMode="contains" filterBy="#{pendencia.descricao}" filterStyle="width: 300px; display:none">
+                        <h:outputText id="nome" value="#{pendencia.descricao}"/>
+                    </p:column>
+
+                    <p:column id="acoes" headerText="Ações" style="text-align: center" width="25">
+                        <p:button id="botaoEditar" title="Editar" icon="ui-icon ui-icon-pencil" style="font-size: 10px" outcome="/pendencia/CadastroPendencia">
+                            <f:param  name="pendencia" value="#{pendencia.id}"/>
+                            <p:tooltip for="botaoEditar" value="Edita o registro selecionado"/>
+                        </p:button>
+                    </p:column>
+
+                </p:dataTable>
+            </p:fieldset>
+        </h:form>
+    </ui:define>
+
+</ui:composition>
