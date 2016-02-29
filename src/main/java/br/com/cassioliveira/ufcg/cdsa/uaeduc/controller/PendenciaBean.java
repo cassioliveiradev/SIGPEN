@@ -2,6 +2,7 @@ package br.com.cassioliveira.ufcg.cdsa.uaeduc.controller;
 
 import br.com.cassioliveira.ufcg.cdsa.uaeduc.enumeration.LocalizacaoFisicaUAEDUC;
 import br.com.cassioliveira.ufcg.cdsa.uaeduc.model.Pendencia;
+import br.com.cassioliveira.ufcg.cdsa.uaeduc.model.Professor;
 import br.com.cassioliveira.ufcg.cdsa.uaeduc.service.PendenciaService;
 import br.com.cassioliveira.ufcg.cdsa.uaeduc.util.jsf.FacesUtil;
 import java.io.Serializable;
@@ -38,6 +39,10 @@ public class PendenciaBean implements Serializable {
     private PendenciaService pendenciaService;
 
     @Getter
+    @Setter
+    private Professor professor;
+
+    @Getter
     private List<Pendencia> pendencias;
 
     @Getter
@@ -46,11 +51,20 @@ public class PendenciaBean implements Serializable {
     public PendenciaBean() {
 
     }
+    
+    public void novoProfessor(){
+        this.professor = new Professor();
+    }
 
     @PostConstruct
     public void init() {
         this.localizacoesFisicas = Arrays.asList(LocalizacaoFisicaUAEDUC.values());
         this.pendencias = pendenciaService.findAll();
+    }
+
+    public void associarProfessor() {
+        pendencia.getProfessores().add(professor);
+        professor.setPendencia(pendencia);
     }
 
     public void salvar() {

@@ -36,7 +36,7 @@ public class Pendencia implements Serializable{
     private Long id;
     
     @Lob
-    @NotNull
+    @NotNull(message = "Informe a descrição da pendência")
     @Column(name = "pendencia_descricao", nullable = false)
     private String descricao;
     
@@ -69,7 +69,7 @@ public class Pendencia implements Serializable{
     @Column(name = "pendencia_observacoes")
     private String observacoes;
     
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "pendencia", cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "pendencia_professor")
     private List<Professor> professores = new ArrayList<>();
     

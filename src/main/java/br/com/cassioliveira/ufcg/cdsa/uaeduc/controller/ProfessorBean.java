@@ -39,14 +39,19 @@ public class ProfessorBean implements Serializable {
     @Setter
     private List<Professor> listaProfessores;
 
+    @PostConstruct
+    public void init() {
+        this.listaProfessores = professorService.findAll();
+    }
+
     public void salvar() {
         this.professorService.salvar(professor);
         if (getEditando()) {
             FacesUtil.mensagemSucesso("Professor atualizado com sucesso!");
-            FacesUtil.redirecionaPara("PesquisaProfessor.xhtml");
         } else {
             FacesUtil.mensagemSucesso("Professor cadastrado com sucesso!");
         }
+        FacesUtil.redirecionaPara("CadastroProfessor.xhtml");
         professor = new Professor();
     }
 

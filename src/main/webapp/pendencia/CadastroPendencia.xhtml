@@ -13,10 +13,34 @@
 
     <ui:define name="content">
         <h:form id="formCadastroPendencia" style="margin-top: 80px">
-            <p:growl autoUpdate="false"/>
-            <p:fieldset legend="Cadastro de pendências" >
 
-                <p:panelGrid columns="2" layout="grid" styleClass="panelgrid-noborder"
+            <p:fieldset>
+
+                <p:toolbar id="toolbarPendencia">
+                    <f:facet name="left">
+                        <p:commandButton style="font-size: 13px;" value="Salvar" action="#{pendenciaBean.salvar}" 
+                                         update="@form" icon="ui-icon ui-icon-disk" id="botaoSalvar">
+                        </p:commandButton>
+
+                        <p:button style="font-size: 13px;" value="Cancelar"
+                                  id="botaoCancelar" outcome="/pendencia/PesquisaPendencia"
+                                  icon="fa fa-times" rendered="#{pendenciaBean.editando}" 
+                                  disabled="#{botaoEditar}">
+                        </p:button>
+
+                    </f:facet>
+
+                    <f:facet name="right">
+                        <p:button style="font-size: 13px;" value="Consultar"
+                                  id="botaoPesquisar" outcome="/pendencia/PesquisaPendencia"
+                                  icon="ui-icon ui-icon-search" rendered="#{pendenciaBean.editando eq 'false'}">
+                        </p:button>
+                    </f:facet>
+                </p:toolbar>
+
+                <p:messages autoUpdate="false" closable="true"/>
+
+                <p:panelGrid columns="2" layout="grid" styleClass="panelgrid-noborder" style="margin-top: 10px"
                              columnClasses="ui-grid-col-2, ui-grid-col-10">
 
                     <p:outputLabel for="descricao" value="Descrição: "/>
@@ -65,31 +89,39 @@
                     <p:outputLabel for="observacoes" value="Observações: "/>
                     <p:inputTextarea id="observacoes" autoResize="false" value="#{pendenciaBean.pendencia.observacoes}" 
                                      rows="3" cols="53"/>
-
                 </p:panelGrid>
 
-                <p:toolbar id="toolbarPendencia" style="margin-top: 10px">
+            </p:fieldset>
+
+            <p:fieldset style="margin-top: 10px">
+
+                <p:toolbar id="toolbarAssociaProfessor">
                     <f:facet name="left">
-                        <p:commandButton style="font-size: 13px;" value="Salvar" action="#{pendenciaBean.salvar}" 
-                                         update="@form" icon="ui-icon ui-icon-disk" id="botaoSalvar">
-                        </p:commandButton>
-
-                        <p:button style="font-size: 13px;" value="Cancelar"
-                                  id="botaoCancelar" outcome="/pendencia/PesquisaPendencia"
-                                  icon="fa fa-times" rendered="#{pendenciaBean.editando}" 
-                                  disabled="#{botaoEditar}">
-                        </p:button>
-
-                    </f:facet>
-
-                    <f:facet name="right">
-                        <p:button style="font-size: 13px;" value="Consultar"
-                                  id="botaoPesquisar" outcome="/pendencia/PesquisaPendencia"
-                                  icon="ui-icon ui-icon-search" rendered="#{pendenciaBean.editando eq 'false'}">
-                        </p:button>
+                        <p:commandButton id="associarProfessor" value="Associar professor"  icon="ui-icon ui-icon-disk" 
+                                         style="font-size: 13px;" oncomplete="PF('dialogAssociaProfessor').show()"
+                                         action="#{pendenciaBean.novoProfessor}"/>
                     </f:facet>
                 </p:toolbar>
+
+                <p:dialog widgetVar="dialogAssociaProfessor" header="Associar professor à pendência"
+                          resizable="false" modal="true" style="min-width: 300px" responsive="true">
+
+                    <h:panelGroup id="panelGroupAssociaProfessor" layout="block" styleClass="ui-fluid">
+                        <p:panelGrid columns="2" layout="grid" style="panelgrid-noborder" columnClasses="ui-grid-col-2, ui-grid-col-10">
+
+                            <p:outputLabel for="professor" value="Professor: "/>
+                            <p:inputText id="professor" value="#{pendenciaBean.pendencia.professores}"/>
+
+                            <p:commandButton id="botaoAssociaProfessor" value="OK" icon="fa fa-check" 
+                                             action="#{pendenciaBean.associarProfessor}"/>
+
+                        </p:panelGrid>
+                    </h:panelGroup>
+
+                </p:dialog>
+
             </p:fieldset>
+
         </h:form>
     </ui:define>
 
