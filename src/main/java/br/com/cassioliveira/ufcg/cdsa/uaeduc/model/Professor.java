@@ -28,7 +28,7 @@ public class Professor implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
+    @NotNull(message = "Um nome deve ser informado")
     @Column(name = "professor_nome", nullable = false, length = 200)
     private String nome;
 
@@ -36,7 +36,7 @@ public class Professor implements Serializable {
     @Column(name = "professor_data")
     private Date data;
     
-    @ManyToOne
-    private Pendencia pendencia;
+//    @ManyToOne
+//    private Pendencia pendencia;
 
 }

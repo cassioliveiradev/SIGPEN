@@ -63,8 +63,8 @@ public class PendenciaBean implements Serializable {
     }
 
     public void associarProfessor() {
-        pendencia.getProfessores().add(professor);
-        professor.setPendencia(pendencia);
+        pendencia.getProfessores().add(professor.toString());
+//        professor.setPendencia(pendencia);
     }
 
     public void salvar() {

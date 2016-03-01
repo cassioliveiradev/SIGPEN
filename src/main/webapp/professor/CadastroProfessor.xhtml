@@ -14,7 +14,9 @@
     <ui:define name="content">
         <h:form id="formPesquisaProfessor"  style="margin-top: 80px">
 
-            <p:fieldset>
+            <p:fieldset id="fieldsetProfessor" legend="Cadastro de professores">
+                
+                <p:focus context="fieldsetProfessor"/>
 
                 <p:messages autoUpdate="false" closable="true"/>
 
@@ -35,7 +37,7 @@
                 </p:toolbar>
 
                 <p:dataTable id="datatablePesquisaProfessor" var="professor" value="#{professorBean.listaProfessores}"
-                             paginatorAlwaysVisible="false" style="margin-top: 20px; " rows="10" 
+                             paginatorAlwaysVisible="false" style="margin-top: 20px; " rows="10" reflow="true"
                              paginatorPosition="bottom" emptyMessage="Nenhum registro encontrado" paginator="true" widgetVar="pesquisaProfessor"
                              paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} 
                              {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,20,50,100"
@@ -56,6 +58,15 @@
                             <f:param  name="professor" value="#{professor.id}"/>
                             <p:tooltip for="botaoEditar" value="Edita o registro selecionado"/>
                         </p:button>
+                        
+                         <p:commandButton id="botaoExcluir" title="Ecluir" icon="ui-icon ui-icon-trash" style="font-size: 10px"
+                                          action="#{professorBean.delete}" process="datatablePesquisaProfessor" update="datatablePesquisaProfessor">
+                             <f:setPropertyActionListener value="#{professor}" target="#{professorBean.professorSelecionado}"/>
+                            <p:tooltip for="botaoExcluir" value="Exclui a linha selecionada"/>
+
+                            <p:confirm icon="ui-icon-alert" header="Excluir professor" message="Deseja realmente excluir o cadastro?"/>
+
+                        </p:commandButton>
                     </p:column>
 
                 </p:dataTable>

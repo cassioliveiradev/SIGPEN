@@ -2,10 +2,8 @@ package br.com.cassioliveira.ufcg.cdsa.uaeduc.model;
 
 import br.com.cassioliveira.ufcg.cdsa.uaeduc.enumeration.LocalizacaoFisicaUAEDUC;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -13,9 +11,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
-import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
@@ -69,8 +65,17 @@ public class Pendencia implements Serializable{
     @Column(name = "pendencia_observacoes")
     private String observacoes;
     
-    @OneToMany(mappedBy = "pendencia", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "pendencia_professor")
-    private List<Professor> professores = new ArrayList<>();
+    @Column(name = "pendencia_professores")
+    private List<String> professores;
+    
+    @Column(name = "pendencia_status")
+    private String status;
+    
+    @Column(name = "pendencia_nome_usuario")
+    private String nomeUsuario;
+    
+//    @OneToMany(mappedBy = "pendencia", cascade = CascadeType.ALL, orphanRemoval = true)
+//    @JoinColumn(name = "pendencia_professor")
+//    private List<Professor> professores = new ArrayList<>();
     
 }
