@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -35,7 +34,7 @@ public class Professor implements Serializable {
     @Temporal(TemporalType.DATE)
     @Column(name = "professor_data")
     private Date data;
-    
+
 //    @ManyToOne
 //    private Pendencia pendencia;
 

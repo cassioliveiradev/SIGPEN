@@ -51,8 +51,8 @@ public class PendenciaBean implements Serializable {
     public PendenciaBean() {
 
     }
-    
-    public void novoProfessor(){
+
+    public void novoProfessor() {
         this.professor = new Professor();
     }
 
@@ -62,13 +62,14 @@ public class PendenciaBean implements Serializable {
         this.pendencias = pendenciaService.findAll();
     }
 
-    public void associarProfessor() {
-        pendencia.getProfessores().add(professor.toString());
+//    public void associarProfessor() {
+//        pendencia.getProfessores().add(professor);
 //        professor.setPendencia(pendencia);
-    }
+//    }
 
     public void salvar() {
         this.pendenciaService.salvar(pendencia);
+//        professor.setPendencia(pendencia);
         if (getEditando()) {
             FacesUtil.mensagemSucesso("Pendência atualizada com sucesso!");
         } else {

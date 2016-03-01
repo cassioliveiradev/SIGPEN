@@ -15,7 +15,7 @@
         <h:form id="formCadastroPendencia" style="margin-top: 80px">
 
             <p:fieldset id="fieldsetPendencias" legend="Cadastro de pendências">
-                
+
                 <p:focus context="fieldsetPendencias"/>
 
                 <p:messages autoUpdate="false" closable="true"/>
@@ -29,7 +29,7 @@
                     <p:outputLabel for="localizacao" value="Localização: "/>
                     <h:panelGroup>
                         <p:selectOneMenu id="localizacao" value="#{pendenciaBean.pendencia.localizacaoFisica}" style="width: 312px; z-index: 8;">
-                            <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
+                            <f:selectItem itemLabel="Selecione a localizaçao" noSelectionOption="true"/>
                             <f:selectItems var="pendencia" value="#{pendenciaBean.localizacoesFisicas}" itemValue="#{pendencia}" 
                                            itemLabel="#{pendencia.descricao}"/>
                             <f:ajax execute="localizacao" render="panelOutraLocalizacao"/>
