@@ -14,7 +14,7 @@
     <ui:define name="content">
         <h:form id="formCadastroPendencia" style="margin-top: 80px">
 
-            <p:fieldset id="fieldsetPendencias" legend="Cadastro de pendências">
+            <p:fieldset id="fieldsetPendencias" legend="Cadastro de pendências" styleClass="centerFieldsetLegend">
 
                 <p:focus context="fieldsetPendencias"/>
 
@@ -43,8 +43,9 @@
                     </h:panelGroup>
 
                     <p:outputLabel id="labelProfessores" value="Professor(es): "/>
-                    <p:selectCheckboxMenu id="professores" value="#{pendenciaBean.pendencia.professores}" style="width: 342px; z-index: 8;"
-                                          label="Selecione o(s) professor(es)" filter="true" filterMatchMode="startsWith">
+                    <p:selectCheckboxMenu id="professores" value="#{pendenciaBean.pendencia.professores}" style="width: 341px; z-index: 8;"
+                                          label="Selecione o(s) professor(es)" filter="true" filterMatchMode="startsWith" required="true" 
+                                          requiredMessage="É necessário informar um ou mais professores para essa pendência">
                         <f:selectItems var="professor" value="#{professorBean.listaProfessores}" itemValue="#{professor.nome}" 
                                        itemLabel="#{professor.nome}"/>
                     </p:selectCheckboxMenu>
@@ -58,7 +59,7 @@
 
                         <p:outputLabel for="remetente" value="Remetente: " style="margin-left: 5px"/>
                         <p:inputText id="remetente" value="#{pendenciaBean.pendencia.remetente}" maxlength="255"
-                                     style="margin-left: 7px"/>
+                                     style="margin-left: 7px; width: 152px"/>
                     </h:panelGroup>
 
                     <p:outputLabel for="dataEntrega" value="Data de entrega: "/>
@@ -69,7 +70,7 @@
                         </p:calendar>
 
                         <p:outputLabel for="destinatario" value="Destinatário: " style="margin-left: 5px"/>
-                        <p:inputText id="destinatario" value="#{pendenciaBean.pendencia.destinatario}" maxlength="50"/>
+                        <p:inputText id="destinatario" value="#{pendenciaBean.pendencia.destinatario}" maxlength="50" style="width: 152px"/>
 
                     </h:panelGroup>
 

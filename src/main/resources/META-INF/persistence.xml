@@ -5,14 +5,11 @@
     <jta-data-source>jdbc/uaeduc</jta-data-source>
     <class>br.com.cassioliveira.ufcg.cdsa.uaeduc.model.Pendencia</class>
     <class>br.com.cassioliveira.ufcg.cdsa.uaeduc.model.Professor</class>
-    <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
       <property name="eclipselink.logging.level" value="FINE"/>
       <property name="eclipselink.logging.logger" value="DefaultLogger"/>
       <property name="eclipselink.logging.session" value="true"/>
-      <!--Cria as tabelas de pais, cidades e estados, caso não existam e as populam com os dados relacionados para o Brasil.-->
-      <!--<property name="javax.persistence.sql-load-script-source" value="META-INF/sql/CidadesEstadosBrasil.sql"/>-->
     </properties>
   </persistence-unit>
 </persistence>

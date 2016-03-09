@@ -11,8 +11,6 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import lombok.Getter;
-import lombok.Setter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -31,9 +29,7 @@ public abstract class Generico<T> implements Dao<T>, Serializable {
     private static final Log LOGGER = LogFactory.getLog(Generico.class);
 
     @Inject
-    @Getter
-    @Setter
-    private transient EntityManager entityManager;
+    private EntityManager entityManager;
 
     private Class<T> entity;
 
@@ -57,6 +53,11 @@ public abstract class Generico<T> implements Dao<T>, Serializable {
      */
     @Override
     public void salvar(T entity) {
+//        Pendencia pendencia = new Pendencia();
+//        Professor professor = new Professor();
+//        pendencia.setProfessores(new ArrayList<Professor>());
+//        pendencia.getProfessores().add(professor);
+//        System.out.println();
         entityManager.merge(entity);
     }
 
@@ -149,4 +150,13 @@ public abstract class Generico<T> implements Dao<T>, Serializable {
         }
         return true;
     }
+
+    public EntityManager getEntityManager() {
+        return entityManager;
+    }
+
+    public void setEntityManager(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
+
 }

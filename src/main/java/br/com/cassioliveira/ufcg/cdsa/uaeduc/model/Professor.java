@@ -1,13 +1,15 @@
 package br.com.cassioliveira.ufcg.cdsa.uaeduc.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
@@ -34,8 +36,12 @@ public class Professor implements Serializable {
     @Temporal(TemporalType.DATE)
     @Column(name = "professor_data")
     private Date data;
+    
+//    @ManyToMany(targetEntity = Pendencia.class, mappedBy = "professores")
+//    private List<Pendencia> pendencia = new ArrayList<>();
 
-//    @ManyToOne
+//    @ManyToOne(cascade = CascadeType.ALL, optional = false)
+//    @JoinColumn(name = "professor_pendencia", referencedColumnName = "id")
 //    private Pendencia pendencia;
 
 }

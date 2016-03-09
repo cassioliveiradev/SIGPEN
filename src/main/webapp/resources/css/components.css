@@ -60,3 +60,7 @@
     text-shadow: #E0E0E0 2px -2px 3px, #E0E0E0 -2px 2px 3px;
     vertical-align: middle;
 }
+
+.ui-fieldset-legend .centerFieldsetLegend {
+    text-align: center !important;
+}

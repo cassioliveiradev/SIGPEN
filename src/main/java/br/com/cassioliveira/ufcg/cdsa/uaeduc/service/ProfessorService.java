@@ -1,6 +1,5 @@
 package br.com.cassioliveira.ufcg.cdsa.uaeduc.service;
 
-import br.com.cassioliveira.ufcg.cdsa.uaeduc.controller.DateTimeUtilBean;
 import br.com.cassioliveira.ufcg.cdsa.uaeduc.exception.NegocioException;
 import br.com.cassioliveira.ufcg.cdsa.uaeduc.model.Professor;
 import br.com.cassioliveira.ufcg.cdsa.uaeduc.repository.Professores;
@@ -28,7 +27,7 @@ public class ProfessorService implements Serializable {
      */
     @Transactional
     public void salvar(Professor professor) {
-        professor.setData(new DateTimeUtilBean().getDateToday());
+//        professor.setData(new DateTimeUtilBean().getDateToday());
         this.professores.salvar(professor);
     }
 

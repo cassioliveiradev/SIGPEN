@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
@@ -23,6 +24,7 @@ import lombok.Data;
  */
 @Entity
 @Data
+@NamedQuery(name = "Pendencia.professores", query = "SELECT p.professores FROM Pendencia p")
 public class Pendencia implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -65,16 +67,17 @@ public class Pendencia implements Serializable {
     @Column(name = "pendencia_observacoes")
     private String observacoes;
 
-    @Column(name = "pendencia_professores")
-    private List<String> professores;
-
     @Column(name = "pendencia_status")
     private String status;
 
     @Column(name = "pendencia_nome_usuario")
     private String nomeUsuario;
 
-//    @OneToMany(mappedBy = "pendencia", cascade = CascadeType.ALL, orphanRemoval = true)
-//    @JoinColumn(name = "pendencia_professores")
+    @NotNull(message = "É necessário informar um ou mais professores para essa pendência")
+    @Column(name = "pendencia_professores")
+    private List<String> professores;
+
+//    @ManyToMany(targetEntity = Professor.class, cascade = CascadeType.ALL)
+//    @JoinTable(name = "pendencia_professor")
 //    private List<Professor> professores = new ArrayList<>();
 }

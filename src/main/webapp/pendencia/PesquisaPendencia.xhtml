@@ -12,7 +12,7 @@
             <p:fieldset id="fieldsetPesquisaPendencias" legend="Consulta de pendências">
 
                 <p:focus context="fieldsetPesquisaPendencias"/>
-                
+
                 <p:messages id="mensagens" autoUpdate="true" closable="true"/>
 
                 <p:toolbar >
@@ -22,7 +22,7 @@
                     </f:facet>
                 </p:toolbar>
 
-                <p:dataTable id="datatablePesquisaPendencia" var="pendencia" value="#{pendenciaBean.pendencias}"
+                <p:dataTable id="datatablePesquisaPendencia" var="pendencia" value="#{pendenciaBean.replicarPendenciasPorProfessores}"
                              paginatorAlwaysVisible="false" style="margin-top: 1px; " rows="10" reflow="true"
                              paginatorPosition="bottom" emptyMessage="Nenhum registro encontrado" paginator="true" widgetVar="pesquisaPendencia"
                              paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} 
@@ -35,12 +35,13 @@
                         </p:outputPanel>
                     </f:facet>
 
-                    <p:column headerText="Descrição" width="60" filterMatchMode="contains" filterBy="#{pendencia.descricao}" filterStyle="width: 300px; display:none">
+                    <p:column headerText="Descrição da pendência" width="60" filterMatchMode="contains" filterBy="#{pendencia.descricao}" filterStyle="width: 300px; display:none">
                         <h:outputText id="nome" value="#{pendencia.descricao}"/>
                     </p:column>
-                    
+
                     <p:column headerText="Professor(es)" width="60" filterMatchMode="contains" filterBy="#{pendencia.professores}" filterStyle="width: 300px; display:none">
-                        <h:outputText id="professores" value="#{pendencia.professores}"/>
+                        <p:outputLabel value="${pendencia.professores}"/>
+                        <!--<p:commandLink id="linkProfessor" value="Professores para essa pendência" onclick="PF('dialogProfessores').show()"/>-->
                     </p:column>
 
                     <p:column id="acoes" headerText="Ações" style="text-align: center" width="25">
@@ -52,6 +53,16 @@
 
                 </p:dataTable>
             </p:fieldset>
+
+
+<!--            <p:dialog id="dialogProfessores" widgetVar="dialogProfessores" closable="true" resizable="false" draggable="false" modal="true" 
+                      responsive="true" maximizable="false" minWidth="100" header="Professores da pendência" showEffect="fade" hideEffect="fade"
+                      visible="false">
+                <p:outputLabel for="professores" value="Professor(es): " style="font-weight: bold"/>
+                <br/>
+                <p:outputLabel id="professores" value="#{pendencia.professores}"/>
+            </p:dialog>-->
+
         </h:form>
     </ui:define>
 

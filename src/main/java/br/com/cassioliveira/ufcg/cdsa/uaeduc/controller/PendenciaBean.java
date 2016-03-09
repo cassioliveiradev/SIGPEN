@@ -4,8 +4,10 @@ import br.com.cassioliveira.ufcg.cdsa.uaeduc.enumeration.LocalizacaoFisicaUAEDUC
 import br.com.cassioliveira.ufcg.cdsa.uaeduc.model.Pendencia;
 import br.com.cassioliveira.ufcg.cdsa.uaeduc.model.Professor;
 import br.com.cassioliveira.ufcg.cdsa.uaeduc.service.PendenciaService;
+import br.com.cassioliveira.ufcg.cdsa.uaeduc.service.ProfessorService;
 import br.com.cassioliveira.ufcg.cdsa.uaeduc.util.jsf.FacesUtil;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -13,6 +15,8 @@ import javax.enterprise.inject.Model;
 import javax.inject.Inject;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  *
@@ -23,12 +27,13 @@ public class PendenciaBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    private static final Log LOGGER = LogFactory.getLog(PendenciaBean.class);
+
     @Inject
     @Getter
     @Setter
     private Pendencia pendencia;
 
-    @Inject
     @Getter
     @Setter
     private Pendencia pendenciaSelecionada;
@@ -38,6 +43,10 @@ public class PendenciaBean implements Serializable {
     @Setter
     private PendenciaService pendenciaService;
 
+    @Inject
+    private ProfessorService professorService;
+
+    @Inject
     @Getter
     @Setter
     private Professor professor;
@@ -52,24 +61,15 @@ public class PendenciaBean implements Serializable {
 
     }
 
-    public void novoProfessor() {
-        this.professor = new Professor();
-    }
-
     @PostConstruct
     public void init() {
         this.localizacoesFisicas = Arrays.asList(LocalizacaoFisicaUAEDUC.values());
         this.pendencias = pendenciaService.findAll();
     }
 
-//    public void associarProfessor() {
-//        pendencia.getProfessores().add(professor);
-//        professor.setPendencia(pendencia);
-//    }
-
     public void salvar() {
-        this.pendenciaService.salvar(pendencia);
-//        professor.setPendencia(pendencia);
+        pendenciaService.salvar(pendencia);
+
         if (getEditando()) {
             FacesUtil.mensagemSucesso("Pendência atualizada com sucesso!");
         } else {
@@ -80,7 +80,8 @@ public class PendenciaBean implements Serializable {
     }
 
     public void delete() {
-        this.pendenciaService.delete(pendencia);
+        this.pendenciaService.delete(pendenciaSelecionada);
+        FacesUtil.redirecionaPara("PesquisaPendencia.xhtml");
         FacesUtil.mensagemSucesso("Pendência excluida com sucesso!");
     }
 
@@ -94,4 +95,36 @@ public class PendenciaBean implements Serializable {
         return this.pendencia.getId() != null;
     }
 
+    public List<Professor> getProfessores() {
+        return professorService.findAll();
+    }
+
+    /**
+     * Retorna a lista de pendências com as mesmas replicadas em quantidade de
+     * acordo com a quantidade de professores na pendência.
+     *
+     * @return
+     */
+    public List<Pendencia> getReplicarPendenciasPorProfessores() {
+        List<Pendencia> pendenciasPorProfessor = new ArrayList<>();
+        for (Pendencia pendenciaListada : pendencias) {
+            for (int i = 0; i < pendenciaListada.getProfessores().size(); i++) {
+                pendenciasPorProfessor.add(pendenciaListada);
+            }
+        }
+        return pendenciasPorProfessor;
+    }
+
+//    public List<String> getListaProfessoresComPendencia() {
+//        List<String> professoresComPendencia = new ArrayList<>();
+//
+//        for (Pendencia pendenciaListada : pendencias) {
+//            for (int i = 0; i < pendenciaListada.getProfessores().size(); i++) {
+//                String professorDaVez = pendenciaListada.getProfessores().get(i);
+//                System.out.println("@@@@@@@@@@@@@@@@@@@ Professor da vez: " + professorDaVez);
+//                professoresComPendencia.add(professorDaVez);
+//            }
+//        }
+//        return professoresComPendencia;
+//    }
 }
