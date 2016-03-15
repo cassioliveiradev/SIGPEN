@@ -12,9 +12,9 @@
     </f:metadata>
 
     <ui:define name="content">
-        <h:form id="formCadastroPendencia" style="margin-top: 80px">
+        <h:form id="formEdicaoPendencia" style="margin-top: 80px">
 
-            <p:fieldset id="fieldsetPendencias" legend="Cadastro de pendências" styleClass="centerFieldsetLegend">
+            <p:fieldset id="fieldsetPendencias" legend="Edição de pendências" styleClass="centerFieldsetLegend">
 
                 <p:focus context="fieldsetPendencias"/>
 
@@ -22,6 +22,9 @@
 
                 <p:panelGrid columns="2" layout="grid" styleClass="panelgrid-noborder" style="margin-top: 10px"
                              columnClasses="ui-grid-col-2, ui-grid-col-10">
+
+                    <p:outputLabel for="professor" value="Professor: "/>
+                    <p:outputLabel id="professor" value="#{pendenciaBean.pendencia.professor}" style="font-weight: bold"/>
 
                     <p:outputLabel for="descricao" value="Descrição: "/>
                     <p:inputText id="descricao" value="#{pendenciaBean.pendencia.descricao}" size="50"/>
@@ -41,14 +44,6 @@
                         </h:panelGroup>
 
                     </h:panelGroup>
-
-                    <p:outputLabel id="labelProfessores" value="Professor(es): "/>
-                    <p:selectCheckboxMenu id="professores" value="#{pendenciaBean.pendencia.professores}" style="width: 341px; z-index: 8;"
-                                          label="Selecione o(s) professor(es)" filter="true" filterMatchMode="startsWith" required="true" 
-                                          requiredMessage="É necessário informar um ou mais professores para essa pendência">
-                        <f:selectItems var="professor" value="#{professorBean.listaProfessores}" itemValue="#{professor.nome}" 
-                                       itemLabel="#{professor.nome}"/>
-                    </p:selectCheckboxMenu>
 
                     <p:outputLabel for="dataRecebimento" value="Data de recebimento: "/>
                     <h:panelGroup>
@@ -81,12 +76,12 @@
 
                 <p:toolbar id="toolbarPendencia">
                     <f:facet name="left">
-                        <p:commandButton style="font-size: 13px;" value="Salvar" action="#{pendenciaBean.salvar}" 
+                        <p:commandButton style="font-size: 13px;" value="Salvar alterações" action="#{pendenciaBean.editar}" 
                                          update="@form" icon="ui-icon ui-icon-disk" id="botaoSalvar">
                         </p:commandButton>
 
                         <p:button style="font-size: 13px;" value="Cancelar"
-                                  id="botaoCancelar" outcome="/pendencia/PesquisaPendencia"
+                                  id="botaoCancelar" outcome="/pendencia/pesquisa-pendencia"
                                   icon="fa fa-times" rendered="#{pendenciaBean.editando}" 
                                   disabled="#{botaoEditar}">
                         </p:button>
@@ -95,7 +90,7 @@
 
                     <f:facet name="right">
                         <p:button style="font-size: 13px;" value="Consultar"
-                                  id="botaoPesquisar" outcome="/pendencia/PesquisaPendencia"
+                                  id="botaoPesquisar" outcome="/pendencia/pesquisa-pendencia"
                                   icon="ui-icon ui-icon-search" rendered="#{pendenciaBean.editando eq 'false'}">
                         </p:button>
                     </f:facet>

@@ -44,20 +44,23 @@ public class ProfessorBean implements Serializable {
         this.listaProfessores = professorService.findAll();
     }
 
-    public void salvar() {
-        this.professorService.salvar(professor);
-        if (getEditando()) {
-            FacesUtil.mensagemSucesso("Professor atualizado com sucesso!");
-        } else {
-            FacesUtil.mensagemSucesso("Professor cadastrado com sucesso!");
-        }
-        FacesUtil.redirecionaPara("CadastroProfessor.xhtml");
+    /**
+     * Permite que seja adicionado um novo professor ou que o nome do professor
+     * existente seja alterado.
+     */
+    public void editar() {
+        this.professorService.editar(professor);
+        FacesUtil.mensagemSucesso("Professor atualizado com sucesso!");
+        FacesUtil.redirecionaPara("cadastro-professor.xhtml");
         professor = new Professor();
     }
 
+    /**
+     * Remove um professor cadastrado
+     */
     public void delete() {
         this.professorService.delete(professorSelecionado);
-        FacesUtil.redirecionaPara("CadastroProfessor.xhtml");
+        FacesUtil.redirecionaPara("cadastro-professor.xhtml");
         FacesUtil.mensagemSucesso("Professor excluido com sucesso!");
     }
 

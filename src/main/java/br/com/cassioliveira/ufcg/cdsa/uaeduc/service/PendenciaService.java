@@ -21,7 +21,7 @@ public class PendenciaService implements Serializable {
 
     public PendenciaService() {
     }
-    
+
     /**
      * Método utilizado para salvar um novo cadastro no banco de dados ou editar
      * um cadastro existente.
@@ -31,6 +31,11 @@ public class PendenciaService implements Serializable {
     @Transactional
     public void salvar(Pendencia pendencia) {
         this.pendencias.salvar(pendencia);
+    }
+
+    @Transactional
+    public void editar(Pendencia pendencia) {
+        this.pendencias.editar(pendencia);
     }
 
     /**
@@ -79,9 +84,4 @@ public class PendenciaService implements Serializable {
     public void checaCampoDuplicado(String campo, Object valor, Long id, Pendencia pendencia) {
         pendencias.checaCampoDuplicado(campo, valor, null, pendencia);
     }
-    
-    public int professoresPorPendencia(){
-        return pendencias.professoresPorPendencia().size();
-    }
-    
 }

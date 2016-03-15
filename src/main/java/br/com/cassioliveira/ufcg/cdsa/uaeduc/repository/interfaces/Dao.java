@@ -14,12 +14,18 @@ import java.util.List;
 public interface Dao<T> {
 
     /**
-     * Metodo utilizado para salvar um novo cadastro no banco de dados ou editar
-     * um cadastro existente.
+     * Metodo utilizado para salvar um novo cadastro no banco de dados
      *
      * @param entity
      */
     public void salvar(T entity);
+    
+    /**
+     * Metodo utilizado para editar um cadastro existente no banco de dados.
+     *
+     * @param entity
+     */
+    public void editar(T entity);
 
     /**
      * Método utilizado para remover um cadastro do banco de dados

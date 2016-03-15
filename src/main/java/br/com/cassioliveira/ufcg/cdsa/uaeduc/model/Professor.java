@@ -30,11 +30,11 @@ public class Professor implements Serializable {
     private Long id;
 
     @NotNull(message = "Um nome deve ser informado")
-    @Column(name = "professor_nome", nullable = false, length = 200)
+    @Column(name = "nome", nullable = false, length = 200)
     private String nome;
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "professor_data")
+    @Column(name = "data_controle")
     private Date data;
     
 //    @ManyToMany(targetEntity = Pendencia.class, mappedBy = "professores")

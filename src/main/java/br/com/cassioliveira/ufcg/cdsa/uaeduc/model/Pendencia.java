@@ -1,9 +1,10 @@
 package br.com.cassioliveira.ufcg.cdsa.uaeduc.model;
 
 import br.com.cassioliveira.ufcg.cdsa.uaeduc.enumeration.LocalizacaoFisicaUAEDUC;
+import br.com.cassioliveira.ufcg.cdsa.uaeduc.enumeration.StatusPendencia;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -12,10 +13,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
-import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import lombok.Data;
 
 /**
@@ -24,7 +23,6 @@ import lombok.Data;
  */
 @Entity
 @Data
-@NamedQuery(name = "Pendencia.professores", query = "SELECT p.professores FROM Pendencia p")
 public class Pendencia implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -33,51 +31,57 @@ public class Pendencia implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Lob
-    @NotNull(message = "Informe a descrição da pendência")
-    @Column(name = "pendencia_descricao", nullable = false)
+    @Column(name = "descricao", nullable = false, length = 200)
     private String descricao;
 
-    @Column(name = "pendencia_remetente", length = 255)
+    @Column(name = "remetente", length = 255)
     private String remetente;
 
-    @Column(name = "pendencia_destinatario", length = 50)
+    @Column(name = "destinatario", length = 50)
     private String destinatario;
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "pendencia_data_recebimento")
+    @Column(name = "data_recebimento")
     private Date dataRecebimentoSecretaria;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "pendencia_localizacao_fisica")
+    @Column(name = "localizacao_fisica")
     private LocalizacaoFisicaUAEDUC localizacaoFisica;
 
-    @Column(name = "pendencia_outra_localizacao", length = 200)
+    @Column(name = "outra_localizacao", length = 200)
     private String outraLocalizacao;
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "pendencia_entrega_destinatario")
+    @Column(name = "data_entrega_destinatario")
     private Date dataEntregaDestinatario;
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "pendencia_data")
+    @Column(name = "data_controle")
     private Date data;
 
     @Lob
-    @Column(name = "pendencia_observacoes")
+    @Column(name = "observacoes")
     private String observacoes;
 
-    @Column(name = "pendencia_status")
-    private String status;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
+    private StatusPendencia status;
 
-    @Column(name = "pendencia_nome_usuario")
+    @Column(name = "nome_usuario")
     private String nomeUsuario;
+    
+    @Column(name = "motivo_baixa")
+    private String motivoBaixa;
 
-    @NotNull(message = "É necessário informar um ou mais professores para essa pendência")
-    @Column(name = "pendencia_professores")
-    private List<String> professores;
+    @Column(name = "professor")
+    private String professor;
 
 //    @ManyToMany(targetEntity = Professor.class, cascade = CascadeType.ALL)
-//    @JoinTable(name = "pendencia_professor")
+//    @JoinTable(name = "professor")
 //    private List<Professor> professores = new ArrayList<>();
+    
+    @PostConstruct
+    public void init(){
+        setStatus(StatusPendencia.ABERTA);
+    }
 }

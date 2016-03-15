@@ -31,6 +31,11 @@ public class ProfessorService implements Serializable {
         this.professores.salvar(professor);
     }
 
+    @Transactional
+    public void editar(Professor professor) {
+        this.professores.editar(professor);
+    }
+
     /**
      * Método utilizado para remover um cadastro do banco de dados.
      *

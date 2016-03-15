@@ -2,8 +2,11 @@ package br.com.cassioliveira.ufcg.cdsa.uaeduc.repository;
 
 import br.com.cassioliveira.ufcg.cdsa.uaeduc.exception.NegocioException;
 import br.com.cassioliveira.ufcg.cdsa.uaeduc.repository.interfaces.Dao;
+import br.com.cassioliveira.ufcg.cdsa.uaeduc.util.jsf.FacesUtil;
 import java.io.Serializable;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -11,6 +14,10 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -53,11 +60,11 @@ public abstract class Generico<T> implements Dao<T>, Serializable {
      */
     @Override
     public void salvar(T entity) {
-//        Pendencia pendencia = new Pendencia();
-//        Professor professor = new Professor();
-//        pendencia.setProfessores(new ArrayList<Professor>());
-//        pendencia.getProfessores().add(professor);
-//        System.out.println();
+        entityManager.persist(entity);
+    }
+
+    @Override
+    public void editar(T entity) {
         entityManager.merge(entity);
     }
 

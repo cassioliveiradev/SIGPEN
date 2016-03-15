@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="/WEB-INF/templates/Layout.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <f:metadata>
+        <f:viewParam name="pendencia" value="#{pendenciaBean.pendencia}"/>
+    </f:metadata>
+
+    <ui:define name="content">
+        <h:form id="formCadastroPendencia" style="margin-top: 80px">
+
+            <p:fieldset id="fieldsetPendencias" legend="Cadastro de pendências" styleClass="centerFieldsetLegend">
+
+                <p:focus context="fieldsetPendencias"/>
+
+                <p:messages autoUpdate="false" closable="true"/>
+
+                <p:panelGrid columns="2" layout="grid" styleClass="panelgrid-noborder" style="margin-top: 10px"
+                             columnClasses="ui-grid-col-2, ui-grid-col-10">
+
+                    <p:outputLabel for="professor" value="Professor: "/>
+                    <p:outputLabel id="professor" value="#{pendenciaBean.pendencia.professor}" style="font-weight: bold"/>
+
+                    <p:outputLabel for="descricao" value="Descrição: "/>
+                    <p:outputLabel id="descricao" value="#{pendenciaBean.pendencia.descricao}"/>
+
+                    <p:outputLabel for="localizacao" value="Localização: "/>
+                    <p:outputLabel id="localizacao" value="#{pendenciaBean.pendencia.localizacaoFisica.descricao}"/>
+
+                    <p:outputLabel id="outraLocalizacao" value="#{pendenciaBean.pendencia.outraLocalizacao}"
+                                   rendered="#{pendenciaBean.pendencia.localizacaoFisica eq 'OUTRO'}"/>
+
+                    <p:outputLabel for="dataRecebimento" value="Recebimento: "/>
+                    <p:outputLabel id="dataRecebimento" value="#{pendenciaBean.pendencia.dataRecebimentoSecretaria}">
+                        <f:convertDateTime type="date" locale="pt_BR" pattern="dd/MM/yyyy"/>
+                    </p:outputLabel>
+
+                    <p:outputLabel for="dataEntrega" value="Entrega: "/>
+                    <p:outputLabel id="dataEntrega" value="#{pendenciaBean.pendencia.dataEntregaDestinatario}">
+                        <f:convertDateTime type="date" locale="pt_BR" pattern="dd/MM/yyyy"/>
+                    </p:outputLabel>
+
+                    <p:outputLabel for="remetente" value="Remetente: "/>
+                    <p:outputLabel id="remetente" value="#{pendenciaBean.pendencia.remetente}"
+                                   style="margin-left: 7px; width: 152px"/>
+
+                    <p:outputLabel for="destinatario" value="Destinatário: "/>
+                    <p:outputLabel id="destinatario" value="#{pendenciaBean.pendencia.destinatario}" style="width: 152px"/>
+
+                    <p:outputLabel for="observacoes" value="Observações: "/>
+                    <p:outputLabel id="observacoes" value="#{pendenciaBean.pendencia.observacoes}"/>
+                    
+                    <p:outputLabel for="motivoBaixa" value="Motivo da baixa: "/>
+                    <p:inputTextarea id="motivoBaixa" value="#{pendenciaBean.pendencia.motivoBaixa}" style="width: 152px" 
+                                     rows="2"  autoResize="false">
+                        <p:tooltip for="motivoBaixa" value="Informe o motivo da baixa da pendência"/>
+                    </p:inputTextarea>
+
+                </p:panelGrid>
+
+                <p:toolbar id="toolbarPendencia">
+                    <f:facet name="left">
+                        <p:commandButton style="font-size: 13px;" value="Dar baixa" action="#{pendenciaBean.darBaixa}" 
+                                         update="@form" icon="ui-icon ui-icon-disk" id="botaoSalvar">
+                        </p:commandButton>
+
+                        <p:button style="font-size: 13px;" value="Cancelar"
+                                  id="botaoCancelar" outcome="/pendencia/pesquisa-pendencia"
+                                  icon="fa fa-times" rendered="#{pendenciaBean.editando}" 
+                                  disabled="#{botaoEditar}">
+                        </p:button>
+
+                    </f:facet>
+
+                    <f:facet name="right">
+                        <p:button style="font-size: 13px;" value="Consultar"
+                                  id="botaoPesquisar" outcome="/pendencia/pesquisa-pendencia"
+                                  icon="ui-icon ui-icon-search" rendered="#{pendenciaBean.editando eq 'false'}">
+                        </p:button>
+                    </f:facet>
+                </p:toolbar>
+
+            </p:fieldset>
+
+        </h:form>
+    </ui:define>
+
+</ui:composition>

@@ -1,10 +1,10 @@
 package br.com.cassioliveira.ufcg.cdsa.uaeduc.controller;
 
 import br.com.cassioliveira.ufcg.cdsa.uaeduc.enumeration.LocalizacaoFisicaUAEDUC;
+import br.com.cassioliveira.ufcg.cdsa.uaeduc.enumeration.StatusPendencia;
 import br.com.cassioliveira.ufcg.cdsa.uaeduc.model.Pendencia;
 import br.com.cassioliveira.ufcg.cdsa.uaeduc.model.Professor;
 import br.com.cassioliveira.ufcg.cdsa.uaeduc.service.PendenciaService;
-import br.com.cassioliveira.ufcg.cdsa.uaeduc.service.ProfessorService;
 import br.com.cassioliveira.ufcg.cdsa.uaeduc.util.jsf.FacesUtil;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -44,15 +44,16 @@ public class PendenciaBean implements Serializable {
     private PendenciaService pendenciaService;
 
     @Inject
-    private ProfessorService professorService;
-
-    @Inject
     @Getter
     @Setter
     private Professor professor;
 
     @Getter
     private List<Pendencia> pendencias;
+
+    @Getter
+    @Setter
+    private List<String> professores;
 
     @Getter
     private transient List<LocalizacaoFisicaUAEDUC> localizacoesFisicas;
@@ -68,21 +69,73 @@ public class PendenciaBean implements Serializable {
     }
 
     public void salvar() {
-        pendenciaService.salvar(pendencia);
-
-        if (getEditando()) {
-            FacesUtil.mensagemSucesso("Pendência atualizada com sucesso!");
-        } else {
-            FacesUtil.mensagemSucesso("Pendência cadastrada com sucesso!");
+        for (int i = 0; i < getProfessores().size(); i++) {
+            String professorSelecionado = getProfessores().get(i);
+            pendencia.setProfessor(professorSelecionado);
+            pendenciaService.salvar(pendencia);
         }
-        FacesUtil.redirecionaPara("PesquisaPendencia.xhtml");
+        FacesUtil.mensagemSucesso("Pendência cadastrada com sucesso!");
+        FacesUtil.redirecionaPara("pesquisa-pendencia.xhtml");
         pendencia = new Pendencia();
+    }
+
+    public void editar() {
+        pendenciaService.editar(pendencia);
+        FacesUtil.mensagemSucesso("Pendência atualizada com sucesso!");
+        FacesUtil.redirecionaPara("pesquisa-pendencia.xhtml");
+    }
+
+    public void darBaixa() {
+        pendencia.setStatus(StatusPendencia.FECHADA);
+        pendenciaService.editar(pendencia);
+        FacesUtil.mensagemSucesso("Baixa de pendência realizada com sucesso!");
+        FacesUtil.redirecionaPara("pesquisa-pendencia.xhtml");
     }
 
     public void delete() {
         this.pendenciaService.delete(pendenciaSelecionada);
-        FacesUtil.redirecionaPara("PesquisaPendencia.xhtml");
+        FacesUtil.redirecionaPara("pendencias-fechadas.xhtml");
         FacesUtil.mensagemSucesso("Pendência excluida com sucesso!");
+    }
+
+    /**
+     * Verifica e retorna todas as pendências cadastradas e em aberto, desde que
+     * o status das mesmas esteja como 'Aberta'.
+     *
+     * @see StatusPendencia
+     *
+     * @return
+     */
+    public List<Pendencia> getPendenciasAbertas() {
+        List<Pendencia> pendenciasAbertas = new ArrayList<>();
+
+        for (Pendencia pendenciaAberta : pendencias) {
+            if (pendenciaAberta.getStatus() == StatusPendencia.ABERTA) {
+                pendenciasAbertas.add(pendenciaAberta);
+            }
+        }
+
+        return pendenciasAbertas;
+    }
+
+    /**
+     * Verifica e retorna todas as pendências cadastradas e finalizadas, desde
+     * que o status das mesmas esteja como 'Fechada'.
+     *
+     * @see StatusPendencia
+     *
+     * @return
+     */
+    public List<Pendencia> getPendenciasFechadas() {
+        List<Pendencia> pendenciasFechadas = new ArrayList<>();
+
+        for (Pendencia pendenciaFechada : pendencias) {
+            if (pendenciaFechada.getStatus() == StatusPendencia.FECHADA) {
+                pendenciasFechadas.add(pendenciaFechada);
+            }
+        }
+
+        return pendenciasFechadas;
     }
 
     /**
@@ -94,37 +147,4 @@ public class PendenciaBean implements Serializable {
     public boolean getEditando() {
         return this.pendencia.getId() != null;
     }
-
-    public List<Professor> getProfessores() {
-        return professorService.findAll();
-    }
-
-    /**
-     * Retorna a lista de pendências com as mesmas replicadas em quantidade de
-     * acordo com a quantidade de professores na pendência.
-     *
-     * @return
-     */
-    public List<Pendencia> getReplicarPendenciasPorProfessores() {
-        List<Pendencia> pendenciasPorProfessor = new ArrayList<>();
-        for (Pendencia pendenciaListada : pendencias) {
-            for (int i = 0; i < pendenciaListada.getProfessores().size(); i++) {
-                pendenciasPorProfessor.add(pendenciaListada);
-            }
-        }
-        return pendenciasPorProfessor;
-    }
-
-//    public List<String> getListaProfessoresComPendencia() {
-//        List<String> professoresComPendencia = new ArrayList<>();
-//
-//        for (Pendencia pendenciaListada : pendencias) {
-//            for (int i = 0; i < pendenciaListada.getProfessores().size(); i++) {
-//                String professorDaVez = pendenciaListada.getProfessores().get(i);
-//                System.out.println("@@@@@@@@@@@@@@@@@@@ Professor da vez: " + professorDaVez);
-//                professoresComPendencia.add(professorDaVez);
-//            }
-//        }
-//        return professoresComPendencia;
-//    }
 }
