@@ -5,7 +5,8 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 template="/WEB-INF/templates/Layout.xhtml"
                 xmlns:p="http://primefaces.org/ui"
-                xmlns:h="http://xmlns.jcp.org/jsf/html">
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
     <ui:define name="content">
         <h:form id="formPesquisaPendencia"  style="margin-top: 80px">
@@ -22,6 +23,9 @@
 
                         <p:button value="Ver pendências fechadas" id="botaoVerPendenciaFechada"  icon="fa fa-search" 
                                   outcome="/pendencia/pendencias-fechadas"/>
+
+                        <p:commandButton id="relatorioPendencias" action="#{relatorioPendenciasPorProfessor.emitir}" 
+                                         ajax="false" icon="fa fa-file-pdf-o" value="Emitir relatorio" onclick="this.form.target = '_blank'"/>
                     </f:facet>
                 </p:toolbar>
 
@@ -53,16 +57,20 @@
                             <p:tooltip for="botaoVisualizar" value="Visualizar pendencia completa"/>
                         </p:button>
 
-<!--                        <p:button id="botaoEditar" title="Editar" icon="fa fa-edit" style="font-size: 10px" outcome="/pendencia/editar-pendencia">
-                            <f:param  name="pendencia" value="#{pendencia.id}"/>
-                            <p:tooltip for="botaoEditar" value="Edita o registro selecionado"/>
-                        </p:button>-->
-                        
+                        <!--                        <p:button id="botaoEditar" title="Editar" icon="fa fa-edit" style="font-size: 10px" outcome="/pendencia/editar-pendencia">
+                                                    <f:param  name="pendencia" value="#{pendencia.id}"/>
+                                                    <p:tooltip for="botaoEditar" value="Edita o registro selecionado"/>
+                                                </p:button>-->
+
                         <p:button id="botaoBaixarPendencia" title="Dar baixa na pendência" icon="fa fa-download" style="font-size: 10px" outcome="/pendencia/dar-baixa-pendencia">
                             <f:param  name="pendencia" value="#{pendencia.id}"/>
                             <p:tooltip for="botaoBaixarPendencia" value="Baixar pendência escolhida"/>
                         </p:button>
                     </p:column>
+
+                    <f:facet name="footer">
+                        Há #{fn:length(pendenciaBean.pendenciasAbertas)} pendências em aberto.
+                    </f:facet>
 
                 </p:dataTable>
             </p:fieldset>

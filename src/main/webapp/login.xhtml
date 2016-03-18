@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"> 
+
+    <h:head>
+        <!--icon="ui-icon ui-icon-help"-->
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet library="css" name="components.css"/>
+        <!--<link rel="icon" type="image/x-icon" href="http://localhost:8080/HotelSys/resources/images/favicon.ico" />-->
+        <title><ui:insert name="title">SIGPEN - UAEDUC - Login</ui:insert></title>
+    </h:head>
+
+    <h:body style="padding: 0px; margin: 0px; position: fixed; font-size: 14px">
+
+        <div style="position: relative">
+            <h:graphicImage library="images" name="cdsa-bg-1366w.png" width="1320" height="700"/>
+        </div>
+
+        <p:dialog closable="false" visible="true" resizable="false" styleClass="transparent-dialog-login" 
+                  draggable="false" id="loginDialog" position="center" style="margin-left: 20px" responsive="true">
+
+            <f:facet name="header">
+                <div style="margin-left: 35% !important">
+                    <h:graphicImage library="images" name="logo-cdsa.png" style="float: top"/>
+                </div>
+            </f:facet>
+
+            <h:form id="loginForm">
+                <p:growl id="loginMessages" autoUpdate="true"/>
+
+
+                <h:panelGrid id="loginPanelGrid" columns="2" cellpadding="4">
+
+
+                    <p:outputLabel for="username" value="Matrícula: "/>
+                    <p:inputText id="username" required="true" requiredMessage="Informe sua matrícula" 
+                                 size="20" >
+                        <p:tooltip for="username" value="Matrícula"/>
+                    </p:inputText>
+
+                    <p:outputLabel for="password" value="Senha: "/>
+                    <h:panelGroup>
+                        <p:password id="password" required="true" requiredMessage="Informe sua senha"
+                                    size="20" >
+                            <p:tooltip for="password" value="Senha"/>
+                        </p:password>
+
+                        <p:button id="loginEnterButton" icon="fa fa-sign-in" style="font-size: 20px; color: whitesmoke" outcome="Inicio.xhtml">
+                            <p:tooltip for="loginEnterButton" value="Clique para entrar ou pressione ENTER"/>
+                        </p:button>
+
+                    </h:panelGroup>
+
+                </h:panelGrid>
+
+            </h:form>
+        </p:dialog>
+
+        <!--        <div id="credits" style="position: absolute; top: 97%; left: 89%">
+                    <div id="credits" style="float: right; right: 0px; bottom: 0px; padding-right: 10px; padding-bottom: 0px; position: absolute">
+                    <a href="http://www.ambiciousteam.com" target="_blank">
+                        <h:graphicImage id="imgCredits" library="images" name="at-mini.png"/>
+                    </a>
+                    <p:tooltip for="imgCredits" value="Cássio Oliveira[cassio@cassioliveira.com.br] | 
+                               Wilde Arruda[wildearruda@gmail.com]"/>
+                </div>
+        
+                Dialog requesting E-mail to the password recover. 
+                <p:dialog widgetVar="loginPasswordRecover" header="Recuperação de senha" modal="true" 
+                          resizable="false" draggable="false" id="dialogEmailRequest">
+                    <h:form style="line-height: 16px">
+                        <p:outputLabel for="email" value="Digite seu e-mail de cadastro: "/>
+                        <br/>
+                        <p:inputText id="email" size="40" />
+                        <p:commandButton id="okButton" value="Ok" onclick="PF('loginPasswordRecover').hide();
+                                PF('msgEmailConfirm').show();
+                                return false;"/>
+                    </h:form>
+                </p:dialog>
+        
+                Confirmation dialog about sending mail to password recovering.
+                <p:dialog widgetVar="msgEmailConfirm" header="Confirmação de recuperação de senha" modal="true" 
+                          resizable="false" closable="false" draggable="false" id="dialogConfirmationMessage">
+                    <h:form style="line-height: 16px">
+                        <p:outputLabel value="Uma mensagem foi enviada para o e-mail "/>
+                        <span style="font-weight: bold">usuario@dominio.com,</span>
+                        <br/>
+                        <p:outputLabel value="contendo instruções para recuperação da senha."/>
+                        <br/>
+                        <p:commandButton id="okButton" value="Ok" onclick="PF('msgEmailConfirm').hide();"/>
+                    </h:form>
+                </p:dialog>-->
+    </h:body>
+
+    <!--                            <p:commandButton id="lostPasswordLink" onclick="PF('loginPasswordRecover').show();
+                                                                return false;" icon="ui-icon ui-icon-help" style="float: right;"/>
+                            
+                                                        <p:tooltip for="lostPasswordLink" value="Ajuda para recuperar senha." showEffect="fade"/>-->
+
+</html>

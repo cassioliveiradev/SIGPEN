@@ -50,7 +50,7 @@ public class GeneratorReports {
      * @return
      */
     public String pegarCaminhoRelatorio() {
-        return FacesContext.getCurrentInstance().getExternalContext().getRealPath("/resources/reports/");
+        return FacesContext.getCurrentInstance().getExternalContext().getRealPath("/resources/relatorios/");
     }
 
     public void preparaRelatorioPdf(String jasperFileName, String pdfFileName) {

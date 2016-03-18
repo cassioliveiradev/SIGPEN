@@ -5,6 +5,9 @@
     <jta-data-source>jdbc/uaeduc</jta-data-source>
     <class>br.com.cassioliveira.ufcg.cdsa.uaeduc.model.Pendencia</class>
     <class>br.com.cassioliveira.ufcg.cdsa.uaeduc.model.Professor</class>
+    <class>br.com.cassioliveira.ufcg.cdsa.uaeduc.model.Login</class>
+    <class>br.com.cassioliveira.ufcg.cdsa.uaeduc.model.Roles</class>
+    <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
       <property name="eclipselink.logging.level" value="FINE"/>

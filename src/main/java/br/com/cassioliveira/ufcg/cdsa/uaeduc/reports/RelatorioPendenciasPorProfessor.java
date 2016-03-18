@@ -26,6 +26,6 @@ public class RelatorioPendenciasPorProfessor implements Serializable {
      * @see GeneratorReports
      */
     public void emitir() {
-        geradorRelatorios.preparaRelatorioPdf("/relatorio_todos_medicos.jasper", "Relatório de médicos cadastrados.pdf");
+        geradorRelatorios.preparaRelatorioPdf("/relatorio_pendencias_abertas.jasper", "Relatório de pendências por professor.pdf");
     }
 }

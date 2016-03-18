@@ -64,3 +64,53 @@
 .ui-fieldset-legend .centerFieldsetLegend {
     text-align: center !important;
 }
+
+
+/*Dialog login*/
+.transparent-dialog-login{
+    background: rgba(10,10,10,0.6) !important;
+    color: black !important;
+    border: 0px !important;
+    border-radius: 30px !important;
+}
+
+/*Campos input Dialog login*/
+.transparent-dialog-login .ui-inputfield {
+    color: white;  
+    text-shadow: 1px 1px 1px black;
+    background: none;
+}
+/*Campos output Dialog login*/
+.transparent-dialog-login .ui-outputlabel {
+    color: whitesmoke !important;  
+    text-shadow: 3px 3px 3px black !important;
+}
+
+/*Botao Dialog login*/
+.transparent-dialog-login .ui-button{
+    background: none !important;
+    border: none !important;
+}
+
+/*Texto do botão Dialog login*/
+.transparent-dialog-login .ui-button-text{
+    display: none;
+}
+
+/*Barra de título Dialog login*/
+.transparent-dialog-login .ui-dialog-titlebar{
+    background: none !important;
+    border: none !important;
+}
+
+#lostPassword{
+    font-size: 11px;
+    float: right;
+}
+
+#logo-login{
+    float: bottom; 
+    padding-top: 50px; 
+    position: relative; 
+    text-align: center;
+}
