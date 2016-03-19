@@ -5,7 +5,8 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 template="/WEB-INF/templates/Layout.xhtml"
                 xmlns:p="http://primefaces.org/ui"
-                xmlns:h="http://xmlns.jcp.org/jsf/html">
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
     <f:metadata>
         <f:viewParam name="professor" value="#{professorBean.professor}"/>
@@ -15,12 +16,12 @@
         <h:form id="formPesquisaProfessor"  style="margin-top: 80px">
 
             <p:fieldset id="fieldsetProfessor" legend="Cadastro de professores">
-                
+
                 <p:focus context="fieldsetProfessor"/>
 
                 <p:messages autoUpdate="false" closable="true"/>
 
-                <p:panelGrid columns="2" layout="grid" styleClass="panelgrid-noborder"
+                <p:panelGrid id="panelGridProfessor" columns="2" layout="grid" styleClass="panelgrid-noborder"
                              columnClasses="ui-grid-col-1, ui-grid-col-11">
 
                     <p:outputLabel for="descricao" value="Nome: "/>
@@ -58,20 +59,26 @@
                             <f:param  name="professor" value="#{professor.id}"/>
                             <p:tooltip for="botaoEditar" value="Edita o registro selecionado"/>
                         </p:button>
-                        
-                         <p:commandButton id="botaoExcluir" title="Excluir" icon="ui-icon ui-icon-trash" style="font-size: 10px"
-                                          action="#{professorBean.delete}" process="datatablePesquisaProfessor" update="datatablePesquisaProfessor">
-                             <f:setPropertyActionListener value="#{professor}" target="#{professorBean.professorSelecionado}"/>
+
+                        <p:commandButton id="botaoExcluir" title="Excluir" icon="ui-icon ui-icon-trash" style="font-size: 10px"
+                                         action="#{professorBean.delete}" process="datatablePesquisaProfessor" update="datatablePesquisaProfessor">
+                            <f:setPropertyActionListener value="#{professor}" target="#{professorBean.professorSelecionado}"/>
                             <p:tooltip for="botaoExcluir" value="Exclui a linha selecionada"/>
 
                             <p:confirm icon="ui-icon-alert" header="Excluir professor" message="Deseja realmente excluir o cadastro?"/>
 
                         </p:commandButton>
                     </p:column>
+                    
+                    <f:facet name="footer">
+                        Há #{fn:length(professorBean.listaProfessores)} professores cadastrados.
+                    </f:facet>
 
                 </p:dataTable>
 
             </p:fieldset>
+
+            <p:blockUI trigger="botaoSalvar" block="botaoSalvar"/>
 
         </h:form>
     </ui:define>

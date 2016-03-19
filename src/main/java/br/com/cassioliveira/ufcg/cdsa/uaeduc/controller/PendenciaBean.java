@@ -58,8 +58,10 @@ public class PendenciaBean implements Serializable {
     @Getter
     private transient List<LocalizacaoFisicaUAEDUC> localizacoesFisicas;
 
-    public PendenciaBean() {
+    DateTimeUtilBean dateTime;
 
+    public PendenciaBean() {
+        dateTime = new DateTimeUtilBean();
     }
 
     @PostConstruct
@@ -87,6 +89,7 @@ public class PendenciaBean implements Serializable {
 
     public void darBaixa() {
         pendencia.setStatus(StatusPendencia.FECHADA);
+        pendencia.setDataEntregaDestinatario(dateTime.getDateToday());
         pendenciaService.editar(pendencia);
         FacesUtil.mensagemSucesso("Baixa de pendência realizada com sucesso!");
         FacesUtil.redirecionaPara("pesquisa-pendencia.xhtml");

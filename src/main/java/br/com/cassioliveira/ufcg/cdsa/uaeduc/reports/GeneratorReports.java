@@ -5,6 +5,8 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.context.FacesContext;
@@ -59,6 +61,10 @@ public class GeneratorReports {
             //Monta o caminho completo do arquivo de template compilado (.jasper) do relatório.
             String caminhoArquivoJasper = pegarCaminhoRelatorio() + jasperFileName;
 
+            Map<String, Object> parametros = new HashMap<>();
+            String logo = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/resources/images/ufcg-central-200.png");
+            parametros.put("logo", logo);
+
             // Inicia a transação com o banco de dados
             entityManager.getTransaction().begin();
 
@@ -67,7 +73,7 @@ public class GeneratorReports {
              * fillReport que precisa do 'local do arquivo' compilado do relatório (.jasper), possíveis 
              * parâmetros que o relatório necessite e a conexao com o banco
              */
-            JasperPrint jasperPrint = JasperFillManager.fillReport(caminhoArquivoJasper, null, getConexao());
+            JasperPrint jasperPrint = JasperFillManager.fillReport(caminhoArquivoJasper, parametros, getConexao());
 
             /*
              * Um array de bytes recebe o arquivo já exportado para pdf através do método exportReportToPdf()

@@ -20,7 +20,7 @@
 
                 <p:messages autoUpdate="false" closable="true"/>
 
-                <p:panelGrid columns="2" layout="grid" styleClass="panelgrid-noborder" style="margin-top: 10px"
+                <p:panelGrid id="panelGridNovaPendencia" columns="2" layout="grid" styleClass="panelgrid-noborder" style="margin-top: 10px"
                              columnClasses="ui-grid-col-2, ui-grid-col-10">
 
                     <p:outputLabel for="descricao" value="Descrição: "/>
@@ -97,6 +97,8 @@
 
             </p:fieldset>
 
+            <p:blockUI trigger="botaoSalvar" block="fieldsetPendencias"/>
+            
         </h:form>
     </ui:define>
 

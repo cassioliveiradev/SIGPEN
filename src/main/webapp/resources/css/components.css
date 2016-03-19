@@ -114,3 +114,27 @@
     position: relative; 
     text-align: center;
 }
+
+.backgroundLoginImage{
+
+    background-image: url('../images/cdsa-bg-1366w.png');
+    background-repeat: no-repeat;
+    background-size:100%;
+    bottom: 0;
+    color: black;
+    left: 0;
+    overflow: auto;
+    padding: 3em;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    top: 0;
+    background-size: cover;
+
+    /*    background: url(../images/cdsa-bg-1366w.png) no-repeat center center fixed;
+        background-size: cover;
+        -webkit-background-size: cover; 
+        -moz-background-size: cover;
+        -ms-background-size: cover;
+        -o-background-size: cover;*/
+}
