@@ -45,7 +45,7 @@
 
 
                 <p:dataTable id="datatablePesquisaProfessor" var="professor" value="#{professorBean.listaProfessores}"
-                             paginatorAlwaysVisible="false" style="margin-top: 20px; " rows="10" reflow="true"
+                             paginatorAlwaysVisible="false" style="margin-top: 20px; " rows="10" reflow="true" 
                              paginatorPosition="bottom" emptyMessage="Nenhum registro encontrado" paginator="true" widgetVar="pesquisaProfessor"
                              paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} 
                              {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,20,50,100"
@@ -57,7 +57,8 @@
                         </p:outputPanel>
                     </f:facet>
 
-                    <p:column headerText="Nome" width="60" filterMatchMode="contains" filterBy="#{professor.nome}" filterStyle="width: 300px; display:none">
+                    <p:column headerText="Nome" width="60" filterMatchMode="contains" filterBy="#{professor.nome}" 
+                              filterStyle="width: 300px; display:none" sortBy="#{professor.nome}">
                         <h:outputText id="nome" value="#{professor.nome}"/>
                     </p:column>
 
