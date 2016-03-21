@@ -13,9 +13,9 @@
     </f:metadata>
 
     <ui:define name="content">
-        <h:form id="formPesquisaProfessor"  style="margin-top: 80px">
+        <p:fieldset id="fieldsetProfessor" legend="Cadastro de professores"   style="margin-top: 80px">
+            <h:form id="formPesquisaProfessor">
 
-            <p:fieldset id="fieldsetProfessor" legend="Cadastro de professores">
 
                 <p:focus context="fieldsetProfessor"/>
 
@@ -29,13 +29,20 @@
 
                 </p:panelGrid>
 
-                <p:toolbar id="toolbarProfessor" style="margin-top: 5px; ">
+                <p:toolbar>
                     <f:facet name="left">
-                        <p:commandButton style="font-size: 13px;" value="Salvar" action="#{professorBean.editar}" 
+                        <p:commandButton style="font-size: 13px; margin-left: 5px; vertical-align: middle" value="Salvar" action="#{professorBean.editar}" 
                                          update="@form" icon="ui-icon ui-icon-disk" id="botaoSalvar">
                         </p:commandButton>
                     </f:facet>
+
+                    <f:facet name="right">
+                        <p:commandButton id="relatorioProfessores" action="#{executaRelatorios.emitirRelatorioTodosProfessores}" immediate="true"
+                                         ajax="false" icon="fa fa-file-pdf-o" value="Emitir relatorio" onclick="this.form.target = '_blank'"/>
+
+                    </f:facet>
                 </p:toolbar>
+
 
                 <p:dataTable id="datatablePesquisaProfessor" var="professor" value="#{professorBean.listaProfessores}"
                              paginatorAlwaysVisible="false" style="margin-top: 20px; " rows="10" reflow="true"
@@ -69,18 +76,18 @@
 
                         </p:commandButton>
                     </p:column>
-                    
+
                     <f:facet name="footer">
                         Há #{fn:length(professorBean.listaProfessores)} professores cadastrados.
                     </f:facet>
 
                 </p:dataTable>
 
-            </p:fieldset>
 
-            <p:blockUI trigger="botaoSalvar" block="botaoSalvar"/>
+                <p:blockUI trigger="botaoSalvar" block="fieldsetProfessor"/>
 
-        </h:form>
+            </h:form>
+        </p:fieldset>
     </ui:define>
 
 </ui:composition>

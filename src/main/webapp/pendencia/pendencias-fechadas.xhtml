@@ -19,6 +19,9 @@
                     <f:facet name="right">
                         <p:button value="Voltar para pendencias abertas" id="botaoTelaCadastro"  icon="fa fa-arrow-left" 
                                   outcome="/pendencia/pesquisa-pendencia"/>
+
+                        <p:commandButton id="relatorioPendenciasFechadas" action="#{executaRelatorios.emitirRelatorioPendenciasFechadas}" 
+                                         ajax="false" icon="fa fa-file-pdf-o" value="Emitir relatorio" onclick="this.form.target = '_blank'"/>
                     </f:facet>
                 </p:toolbar>
 
@@ -35,15 +38,29 @@
                         </p:outputPanel>
                     </f:facet>
 
-                    <p:column headerText="Pendência" width="50%" filterMatchMode="contains" filterBy="#{pendencia.descricao}" filterStyle="width: 300px; display:none">
+                    <p:column headerText="Pendência" width="40%" filterMatchMode="contains" filterBy="#{pendencia.descricao}" filterStyle="width: 300px; display:none">
                         <h:outputText id="nome" value="#{pendencia.descricao}"/>
                     </p:column>
 
-                    <p:column headerText="Professor" width="16%" filterMatchMode="contains" filterBy="#{pendencia.professor}" filterStyle="width: 300px; display:none">
+                    <p:column headerText="Professor" width="25%" filterMatchMode="contains" filterBy="#{pendencia.professor}" filterStyle="width: 300px; display:none">
                         <p:outputLabel value="#{pendencia.professor}"/>
                     </p:column>
-                    
-                    <p:column headerText="Motivo" width="16%" filterMatchMode="contains" filterBy="#{pendencia.motivoBaixa}" filterStyle="width: 300px; display:none">
+
+                    <p:column headerText="Recebimento" width="11%" filterMatchMode="contains" filterBy="#{pendencia.dataRecebimentoSecretaria}" filterStyle="width: 300px; display:none"
+                              style="text-align: center">
+                        <p:outputLabel value="#{pendencia.dataRecebimentoSecretaria}">
+                            <f:convertDateTime type="date" locale="pt_BR" pattern="dd/MM/yyyy"/>
+                        </p:outputLabel>
+                    </p:column>
+
+                    <p:column headerText="Entrega" width="10%" filterMatchMode="contains" filterBy="#{pendencia.dataEntregaDestinatario}" filterStyle="width: 300px; display:none"
+                              style="text-align: center">
+                        <p:outputLabel value="#{pendencia.dataEntregaDestinatario}">
+                            <f:convertDateTime type="date" locale="pt_BR" pattern="dd/MM/yyyy"/>
+                        </p:outputLabel>
+                    </p:column>
+
+                    <p:column headerText="Motivo" width="15%" filterMatchMode="contains" filterBy="#{pendencia.motivoBaixa}" filterStyle="width: 300px; display:none">
                         <p:outputLabel value="#{pendencia.motivoBaixa}"/>
                     </p:column>
 

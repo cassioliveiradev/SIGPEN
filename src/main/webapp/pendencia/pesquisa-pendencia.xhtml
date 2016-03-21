@@ -24,7 +24,7 @@
                         <p:button value="Ver pendências fechadas" id="botaoVerPendenciaFechada"  icon="fa fa-search" 
                                   outcome="/pendencia/pendencias-fechadas"/>
 
-                        <p:commandButton id="relatorioPendencias" action="#{relatorioPendenciasPorProfessor.emitir}" 
+                        <p:commandButton id="relatorioPendencias" action="#{executaRelatorios.emitirRelatorioPendenciasAbertas}" 
                                          ajax="false" icon="fa fa-file-pdf-o" value="Emitir relatorio" onclick="this.form.target = '_blank'"/>
                     </f:facet>
                 </p:toolbar>
@@ -42,15 +42,26 @@
                         </p:outputPanel>
                     </f:facet>
 
-                    <p:column headerText="Pendência" width="60%" filterMatchMode="contains" filterBy="#{pendencia.descricao}" filterStyle="width: 300px; display:none">
+                    <p:column headerText="Pendência" width="40%" filterMatchMode="contains" filterBy="#{pendencia.descricao}" filterStyle="width: 300px; display:none">
                         <h:outputText id="nome" value="#{pendencia.descricao}"/>
                     </p:column>
 
-                    <p:column headerText="Professor" width="30%" filterMatchMode="contains" filterBy="#{pendencia.professor}" filterStyle="width: 300px; display:none">
+                    <p:column headerText="Localização" width="20%" filterMatchMode="contains" filterBy="#{pendencia.localizacaoFisica}" filterStyle="width: 300px; display:none">
+                        <p:outputLabel value="#{pendencia.localizacaoFisica.descricao}"/>
+                    </p:column>
+
+                    <p:column headerText="Professor" width="25%" filterMatchMode="contains" filterBy="#{pendencia.professor}" filterStyle="width: 300px; display:none">
                         <p:outputLabel value="#{pendencia.professor}"/>
                     </p:column>
 
-                    <p:column id="acoes" style="text-align: center" width="10%">
+                    <p:column headerText="Recebimento" width="10%" filterMatchMode="contains" filterBy="#{pendencia.dataRecebimentoSecretaria}" filterStyle="width: 300px; display:none"
+                              style="text-align: center">
+                        <p:outputLabel value="#{pendencia.dataRecebimentoSecretaria}">
+                            <f:convertDateTime type="date" locale="pt_BR" pattern="dd/MM/yyyy"/>
+                        </p:outputLabel>
+                    </p:column>
+
+                    <p:column id="acoes" style="text-align: center" width="7%">
 
                         <p:button id="botaoVisualizar" title="Visualizar" icon="fa fa-external-link" style="font-size: 10px" outcome="/pendencia/visualizar-pendencia">
                             <f:param  name="pendencia" value="#{pendencia.id}"/>
@@ -62,10 +73,16 @@
                                                     <p:tooltip for="botaoEditar" value="Edita o registro selecionado"/>
                                                 </p:button>-->
 
-                        <p:button id="botaoBaixarPendencia" title="Dar baixa na pendência" icon="fa fa-download" style="font-size: 10px" outcome="/pendencia/dar-baixa-pendencia">
+                        <p:commandButton id="botaoBaixarPendencia" title="Dar baixa na pendência" icon="fa fa-download" style="font-size: 10px" 
+                                         oncomplete="PF('dialogBaixaPendencia').show()">
                             <f:param  name="pendencia" value="#{pendencia.id}"/>
                             <p:tooltip for="botaoBaixarPendencia" value="Baixar pendência escolhida"/>
-                        </p:button>
+                        </p:commandButton>
+                        
+<!--                        <p:button id="botaoBaixarPendencia" title="Dar baixa na pendência" icon="fa fa-download" style="font-size: 10px" outcome="/pendencia/dar-baixa-pendencia">
+                            <f:param  name="pendencia" value="#{pendencia.id}"/>
+                            <p:tooltip for="botaoBaixarPendencia" value="Baixar pendência escolhida"/>
+                        </p:button>-->
                     </p:column>
 
                     <f:facet name="footer">
@@ -74,6 +91,11 @@
 
                 </p:dataTable>
             </p:fieldset>
+            
+            <p:dialog widgetVar="dialogBaixaPendencia" modal="true" maximizable="false" resizable="false" responsive="true" >
+                <ui:include src="dar-baixa-pendencia.xhtml"/>
+            </p:dialog>
+            
         </h:form>
     </ui:define>
 

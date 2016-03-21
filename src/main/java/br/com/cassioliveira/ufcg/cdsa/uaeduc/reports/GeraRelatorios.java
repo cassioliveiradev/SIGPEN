@@ -16,7 +16,7 @@ import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 
-public class GeneratorReports {
+public class GeraRelatorios {
 
     @Inject
     public EntityManager entityManager;
@@ -38,7 +38,7 @@ public class GeneratorReports {
                 try {
                     throw new SQLException("Erro ao fechar a conexão", e);
                 } catch (SQLException ex) {
-                    Logger.getLogger(GeneratorReports.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(GeraRelatorios.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }

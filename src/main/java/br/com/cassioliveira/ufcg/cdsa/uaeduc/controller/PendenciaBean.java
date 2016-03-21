@@ -100,6 +100,10 @@ public class PendenciaBean implements Serializable {
         FacesUtil.redirecionaPara("pendencias-fechadas.xhtml");
         FacesUtil.mensagemSucesso("Pendência excluida com sucesso!");
     }
+    
+//    public void pendenciasPorProfessor(String professor){
+//        pendenciaService.pendenciasPorProfessor(professor);
+//    }
 
     /**
      * Verifica e retorna todas as pendências cadastradas e em aberto, desde que

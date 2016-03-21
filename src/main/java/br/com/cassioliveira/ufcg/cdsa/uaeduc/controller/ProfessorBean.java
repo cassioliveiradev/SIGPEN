@@ -60,7 +60,7 @@ public class ProfessorBean implements Serializable {
      */
     public void delete() {
         this.professorService.delete(professorSelecionado);
-        FacesUtil.redirecionaPara("cadastro-professor.xhtml");
+//        FacesUtil.redirecionaPara("cadastro-professor.xhtml");
         FacesUtil.mensagemSucesso("Professor excluido com sucesso!");
     }
 
