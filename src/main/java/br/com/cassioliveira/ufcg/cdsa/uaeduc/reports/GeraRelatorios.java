@@ -62,7 +62,15 @@ public class GeraRelatorios {
             String caminhoArquivoJasper = pegarCaminhoRelatorio() + jasperFileName;
 
             Map<String, Object> parametros = new HashMap<>();
+
+            /*
+             * Pega o caminho atual do contexto da aplicação e complementa com o diretório de recursos web do sistema onde a imagem se encontra
+             */
             String logo = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/resources/images/ufcg-central-200.png");
+
+            /*
+             * Adiciona ao HashMap 'parametros', como chave, o parametro usado no relatório e, como valor, o caminho completo da imagem de logo.
+             */
             parametros.put("logo", logo);
 
             // Inicia a transação com o banco de dados

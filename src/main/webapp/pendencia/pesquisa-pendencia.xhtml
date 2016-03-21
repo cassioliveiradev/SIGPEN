@@ -73,16 +73,16 @@
                                                     <p:tooltip for="botaoEditar" value="Edita o registro selecionado"/>
                                                 </p:button>-->
 
-                        <p:commandButton id="botaoBaixarPendencia" title="Dar baixa na pendência" icon="fa fa-download" style="font-size: 10px" 
+<!--                        <p:commandButton id="botaoBaixarPendencia" title="Dar baixa na pendência" icon="fa fa-download" style="font-size: 10px" 
                                          oncomplete="PF('dialogBaixaPendencia').show()">
                             <f:param  name="pendencia" value="#{pendencia.id}"/>
                             <p:tooltip for="botaoBaixarPendencia" value="Baixar pendência escolhida"/>
-                        </p:commandButton>
+                        </p:commandButton>-->
                         
-<!--                        <p:button id="botaoBaixarPendencia" title="Dar baixa na pendência" icon="fa fa-download" style="font-size: 10px" outcome="/pendencia/dar-baixa-pendencia">
+                        <p:button id="botaoBaixarPendencia" title="Dar baixa na pendência" icon="fa fa-download" style="font-size: 10px" outcome="/pendencia/dar-baixa-pendencia">
                             <f:param  name="pendencia" value="#{pendencia.id}"/>
                             <p:tooltip for="botaoBaixarPendencia" value="Baixar pendência escolhida"/>
-                        </p:button>-->
+                        </p:button>
                     </p:column>
 
                     <f:facet name="footer">
@@ -92,9 +92,9 @@
                 </p:dataTable>
             </p:fieldset>
             
-            <p:dialog widgetVar="dialogBaixaPendencia" modal="true" maximizable="false" resizable="false" responsive="true" >
+<!--            <p:dialog widgetVar="dialogBaixaPendencia" modal="true" maximizable="false" resizable="false" responsive="true" >
                 <ui:include src="dar-baixa-pendencia.xhtml"/>
-            </p:dialog>
+            </p:dialog>-->
             
         </h:form>
     </ui:define>
