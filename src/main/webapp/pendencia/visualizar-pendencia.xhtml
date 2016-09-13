@@ -30,11 +30,11 @@
                     <p:outputLabel id="descricao" value="#{pendenciaBean.pendencia.descricao}"/>
 
                     <p:outputLabel for="localizacao" value="Localização: "/>
-                    <p:outputLabel id="localizacao" value="#{pendenciaBean.pendencia.localizacaoFisica.descricao}"/>
-
-                    <p:outputLabel id="outraLocalizacao" value="#{pendenciaBean.pendencia.outraLocalizacao}"
-                                   rendered="#{pendenciaBean.pendencia.localizacaoFisica eq 'OUTRO'}"/>
-
+                    <h:panelGroup>
+                        <p:outputLabel id="localizacao" value="#{pendenciaBean.pendencia.localizacaoFisica.descricao}" rendered="#{pendenciaBean.pendencia.localizacaoFisica ne 'OUTRO'}"/>
+                        <p:outputLabel id="outraLocalizacao" value="#{pendenciaBean.pendencia.outraLocalizacao}" rendered="#{pendenciaBean.pendencia.localizacaoFisica eq 'OUTRO'}"/>
+                    </h:panelGroup>
+                    
                     <p:outputLabel for="dataRecebimento" value="Recebimento: "/>
                     <p:outputLabel id="dataRecebimento" value="#{pendenciaBean.pendencia.dataRecebimentoSecretaria}">
                         <f:convertDateTime type="date" locale="pt_BR" pattern="dd/MM/yyyy"/>

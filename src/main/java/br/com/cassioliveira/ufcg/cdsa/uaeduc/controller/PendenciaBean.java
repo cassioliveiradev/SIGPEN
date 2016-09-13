@@ -11,8 +11,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.enterprise.inject.Model;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.logging.Log;
@@ -22,7 +23,8 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author Cássio Oliveira <cassio@cassioliveira.com.br>
  */
-@Model
+@Named
+@ViewScoped
 public class PendenciaBean implements Serializable {
 
     private static final long serialVersionUID = 1L;

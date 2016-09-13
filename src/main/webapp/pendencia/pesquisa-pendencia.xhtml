@@ -47,7 +47,8 @@
                     </p:column>
 
                     <p:column headerText="Localização" width="20%" filterMatchMode="contains" filterBy="#{pendencia.localizacaoFisica}" filterStyle="width: 300px; display:none">
-                        <p:outputLabel value="#{pendencia.localizacaoFisica.descricao}"/>
+                        <p:outputLabel value="#{pendencia.localizacaoFisica.descricao}" rendered="#{pendencia.localizacaoFisica ne 'OUTRO'}"/>
+                        <p:outputLabel value="#{pendencia.outraLocalizacao}" rendered="#{pendencia.localizacaoFisica eq 'OUTRO'}"/>
                     </p:column>
 
                     <p:column headerText="Professor" width="25%" filterMatchMode="contains" filterBy="#{pendencia.professor}" filterStyle="width: 300px; display:none">
@@ -81,7 +82,7 @@
                         
                         <p:button id="botaoBaixarPendencia" title="Dar baixa na pendência" icon="fa fa-download" style="font-size: 10px" outcome="/pendencia/dar-baixa-pendencia">
                             <f:param  name="pendencia" value="#{pendencia.id}"/>
-                            <p:tooltip for="botaoBaixarPendencia" value="Baixar pendência escolhida"/>
+                            <p:tooltip for="botaoBaixarPendencia" value="Baixar pendência"/>
                         </p:button>
                     </p:column>
 
