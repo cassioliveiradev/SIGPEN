@@ -13,9 +13,8 @@
     </f:metadata>
 
     <ui:define name="content">
-        <p:fieldset id="fieldsetProfessor" legend="Cadastro de professores"   style="margin-top: 80px">
-            <h:form id="formPesquisaProfessor">
-
+        <h:form id="formPesquisaProfessor">
+            <p:fieldset id="fieldsetProfessor" legend="Cadastro de professores"   style="margin-top: 80px">
 
                 <p:focus context="fieldsetProfessor"/>
 
@@ -84,11 +83,10 @@
 
                 </p:dataTable>
 
-
                 <p:blockUI trigger="botaoSalvar" block="fieldsetProfessor"/>
 
-            </h:form>
-        </p:fieldset>
+            </p:fieldset>
+        </h:form>
     </ui:define>
 
 </ui:composition>
