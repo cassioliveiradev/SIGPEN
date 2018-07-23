@@ -20,12 +20,10 @@ public class ProfessorBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Inject
     @Getter
     @Setter
     private Professor professor;
 
-    @Inject
     @Getter
     @Setter
     private Professor professorSelecionado;
@@ -36,8 +34,12 @@ public class ProfessorBean implements Serializable {
     private ProfessorService professorService;
 
     @Getter
-    @Setter
     private List<Professor> listaProfessores;
+
+    public ProfessorBean() {
+        this.professor = new Professor();
+        this.professorSelecionado = new Professor();
+    }
 
     @PostConstruct
     public void init() {

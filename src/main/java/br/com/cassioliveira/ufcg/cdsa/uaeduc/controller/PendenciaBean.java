@@ -3,7 +3,6 @@ package br.com.cassioliveira.ufcg.cdsa.uaeduc.controller;
 import br.com.cassioliveira.ufcg.cdsa.uaeduc.enumeration.LocalizacaoFisicaUAEDUC;
 import br.com.cassioliveira.ufcg.cdsa.uaeduc.enumeration.StatusPendencia;
 import br.com.cassioliveira.ufcg.cdsa.uaeduc.model.Pendencia;
-import br.com.cassioliveira.ufcg.cdsa.uaeduc.model.Professor;
 import br.com.cassioliveira.ufcg.cdsa.uaeduc.service.PendenciaService;
 import br.com.cassioliveira.ufcg.cdsa.uaeduc.util.jsf.FacesUtil;
 import java.io.Serializable;
@@ -31,7 +30,6 @@ public class PendenciaBean implements Serializable {
 
     private static final Log LOGGER = LogFactory.getLog(PendenciaBean.class);
 
-    @Inject
     @Getter
     @Setter
     private Pendencia pendencia;
@@ -45,11 +43,10 @@ public class PendenciaBean implements Serializable {
     @Setter
     private PendenciaService pendenciaService;
 
-    @Inject
-    @Getter
-    @Setter
-    private Professor professor;
-
+//    @Inject
+//    @Getter
+//    @Setter
+//    private Professor professor;
     @Getter
     private List<Pendencia> pendencias;
 
@@ -63,6 +60,8 @@ public class PendenciaBean implements Serializable {
     DateTimeUtilBean dateTime;
 
     public PendenciaBean() {
+        this.pendencia = new Pendencia();
+        this.pendenciaSelecionada = new Pendencia();
         dateTime = new DateTimeUtilBean();
     }
 
@@ -73,9 +72,10 @@ public class PendenciaBean implements Serializable {
     }
 
     public void salvar() {
-        for (int i = 0; i < getProfessores().size(); i++) {
-            String professorSelecionado = getProfessores().get(i);
+        for (int nomeAtual = 0; nomeAtual < getProfessores().size(); nomeAtual++) {
+            String professorSelecionado = getProfessores().get(nomeAtual);
             pendencia.setProfessor(professorSelecionado);
+            pendencia.setId(null);
             pendenciaService.salvar(pendencia);
         }
         FacesUtil.mensagemSucesso("Pendência cadastrada com sucesso!");
@@ -102,11 +102,10 @@ public class PendenciaBean implements Serializable {
         FacesUtil.redirecionaPara("pendencias-fechadas.xhtml");
         FacesUtil.mensagemSucesso("Pendência excluida com sucesso!");
     }
-    
+
 //    public void pendenciasPorProfessor(String professor){
 //        pendenciaService.pendenciasPorProfessor(professor);
 //    }
-
     /**
      * Verifica e retorna todas as pendências cadastradas e em aberto, desde que
      * o status das mesmas esteja como 'Aberta'.

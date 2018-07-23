@@ -24,7 +24,7 @@
                              columnClasses="ui-grid-col-2, ui-grid-col-10">
 
                     <p:outputLabel for="descricao" value="Descrição: "/>
-                    <p:inputText id="descricao" value="#{pendenciaBean.pendencia.descricao}" size="50" required="true"
+                    <p:inputText id="descricao" value="#{pendenciaBean.pendencia.descricao}" size="50" required="true" style="text-transform: uppercase"
                                  requiredMessage="Informe a descrição da pendência"/>
 
                     <p:outputLabel for="localizacao" value="Localização: "/>
@@ -44,7 +44,7 @@
                     </h:panelGroup>
 
                     <p:outputLabel id="labelProfessores" value="Professor(es): "/>
-                    <p:selectCheckboxMenu id="professores" value="#{pendenciaBean.professores}" style="width: 341px; z-index: 8;"
+                    <p:selectCheckboxMenu id="professores" value="#{pendenciaBean.professores}" style="width: 341px; z-index: 8;" updateLabel="true"
                                           label="Selecione o(s) professor(es)" filter="true" filterMatchMode="startsWith" required="true" 
                                           requiredMessage="É necessário informar um ou mais professores para essa pendência">
                         <f:selectItems var="professor" value="#{professorBean.listaProfessores}" itemValue="#{professor.nome}" 

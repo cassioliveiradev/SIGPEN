@@ -4,6 +4,8 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Disposes;
 import javax.enterprise.inject.Produces;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -25,42 +27,20 @@ import javax.persistence.Persistence;
 @ApplicationScoped
 public class EntityManagerProducer {
 
-    private final EntityManagerFactory entityManagerFactory;
+    final EntityManagerFactory entityManagerFactory;
 
-    /**
-     * Produtor de EntityManager que recebe a Unidade de Persistência definido
-     * no arquivo 'persistence.xml'.
-     */
     public EntityManagerProducer() {
-        this.entityManagerFactory = Persistence.createEntityManagerFactory("UAEDUCPU");
+        this.entityManagerFactory = Persistence.createEntityManagerFactory("SIGPENPU");
     }
 
-    /**
-     * Sobrecarga de método para unidade de persistência dos testes com hsqldb
-     *
-     * @param unidadePersistenciaTestes
-     */
-    public EntityManagerProducer(String unidadePersistenciaTestes) {
-        this.entityManagerFactory = Persistence.createEntityManagerFactory(unidadePersistenciaTestes);
-    }
-
-    /**
-     * This method is a EntityManager Producer at each request, by the
-     * Annotations bellow.
-     *
-     * @return
-     */
+    /* This method is a EntityManager Producer at each request, by the Annotations bellow.*/
     @Produces
     @RequestScoped
-    public EntityManager create() {
-        return entityManagerFactory.createEntityManager();
+    public EntityManager create() throws NamingException {
+        return (EntityManager) new InitialContext().lookup("java:app/EntityManager");
     }
 
-    /**
-     * This method close the EntityManager when is requested
-     *
-     * @param entityManager
-     */
+    /* This method close the EntityManager when is requested */
     public void close(@Disposes EntityManager entityManager) {
         entityManager.close();
     }

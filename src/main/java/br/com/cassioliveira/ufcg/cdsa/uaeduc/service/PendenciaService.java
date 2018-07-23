@@ -1,12 +1,13 @@
 package br.com.cassioliveira.ufcg.cdsa.uaeduc.service;
 
+import br.com.cassioliveira.ufcg.cdsa.uaeduc.enumeration.StatusPendencia;
 import br.com.cassioliveira.ufcg.cdsa.uaeduc.exception.NegocioException;
 import br.com.cassioliveira.ufcg.cdsa.uaeduc.model.Pendencia;
 import br.com.cassioliveira.ufcg.cdsa.uaeduc.repository.Pendencias;
-import br.com.cassioliveira.ufcg.cdsa.uaeduc.util.jpa.Transactional;
 import java.io.Serializable;
 import java.util.List;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 
 /**
  *
@@ -30,6 +31,7 @@ public class PendenciaService implements Serializable {
      */
     @Transactional
     public void salvar(Pendencia pendencia) {
+        pendencia.setStatus(StatusPendencia.ABERTA);
         this.pendencias.salvar(pendencia);
     }
 
@@ -84,7 +86,7 @@ public class PendenciaService implements Serializable {
     public void checaCampoDuplicado(String campo, Object valor, Long id, Pendencia pendencia) {
         pendencias.checaCampoDuplicado(campo, valor, null, pendencia);
     }
-    
+
 //    public List<String> pendenciasPorProfessor(String professor){
 //        return pendencias.pendenciasPorProfessor(professor);
 //    }

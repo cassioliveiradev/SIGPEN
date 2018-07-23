@@ -1,6 +1,5 @@
 package br.com.cassioliveira.ufcg.cdsa.uaeduc.util.jpa;
 
-import br.com.cassioliveira.ufcg.cdsa.uaeduc.exception.NegocioException;
 import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,7 +22,6 @@ import javax.persistence.EntityTransaction;
  * Repository (http://github.com/algaworks)
  */
 @Interceptor
-@Transactional
 public class TransactionInterceptor implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -45,7 +43,7 @@ public class TransactionInterceptor implements Serializable {
      * @return
      */
     @AroundInvoke
-    public Object invoke(InvocationContext context) throws NegocioException {
+    public Object invoke(InvocationContext context){
         EntityTransaction entityTransaction = entityManager.getTransaction();
         boolean owner = false;
 

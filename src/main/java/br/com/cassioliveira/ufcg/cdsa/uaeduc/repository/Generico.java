@@ -1,23 +1,15 @@
 package br.com.cassioliveira.ufcg.cdsa.uaeduc.repository;
 
 import br.com.cassioliveira.ufcg.cdsa.uaeduc.exception.NegocioException;
-import br.com.cassioliveira.ufcg.cdsa.uaeduc.repository.interfaces.Dao;
-import br.com.cassioliveira.ufcg.cdsa.uaeduc.util.jsf.FacesUtil;
 import java.io.Serializable;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -29,19 +21,16 @@ import org.apache.commons.logging.LogFactory;
  * @author cassio <cassio@cassioliveira.com.br>
  * @param <T>
  */
-public abstract class Generico<T> implements Dao<T>, Serializable {
+public abstract class Generico<T> implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
+    
     private static final Log LOGGER = LogFactory.getLog(Generico.class);
 
-    @Inject
-    private EntityManager entityManager;
+    @PersistenceContext
+    private transient EntityManager entityManager;
 
-    private Class<T> entity;
-
-    public Generico() {
-    }
+    private final Class<T> entity;
 
     /**
      * Construtor da classe que captura a entidade que chamar esta classe.
@@ -53,39 +42,44 @@ public abstract class Generico<T> implements Dao<T>, Serializable {
     }
 
     /**
-     * Método utilizado para salvar um novo cadastro no banco de dados ou editar
+     * Método get para a instância do EntityManager
+     *
+     * @return
+     */
+    public EntityManager getEntityManager() {
+        return entityManager;
+    }
+
+    /**
+     * Metodo utilizado para salvar um novo cadastro no banco de dados ou editar
      * um cadastro existente.
      *
      * @param entity
      */
-    @Override
     public void salvar(T entity) {
         entityManager.persist(entity);
     }
 
-    @Override
     public void editar(T entity) {
         entityManager.merge(entity);
     }
 
     /**
-     * Método utilizado para remover um cadastro do banco de dados.
+     * Método utilizado para remover um cadastro do banco de dados
      *
      * @param entity
      */
-    @Override
     public void delete(T entity) {
         entityManager.remove(entity);
     }
 
     /**
-     * Método responsável pela busca em toda lista.Método utilizado para
-     * retornar uma lista com todos os resultados encontrados no banco de dados
-     * para a entidade que a chamar.
+     * Método utilizado para retornar uma lista com todos os resultados
+     * encontrados no banco de dados para a esntidade que a chamar. A consulta é
+     * feita através de Criteria
      *
      * @return
      */
-    @Override
     public List<T> findAll() {
         CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
         cq.select(cq.from(entity));
@@ -99,7 +93,6 @@ public abstract class Generico<T> implements Dao<T>, Serializable {
      * @param id
      * @return
      */
-    @Override
     public T findById(Long id) {
         return entityManager.find(entity, id);
     }
@@ -112,7 +105,6 @@ public abstract class Generico<T> implements Dao<T>, Serializable {
      * @param valor
      * @return
      */
-    @Override
     public T buscarPorCampo(String campo, Object valor) {
         try {
             CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
@@ -143,7 +135,6 @@ public abstract class Generico<T> implements Dao<T>, Serializable {
      * @return
      * @throws NegocioException
      */
-    @Override
     public boolean checaCampoDuplicado(String campo, Object valor, Long id, T entidade) throws NegocioException {
         try {
             if (id == null) {
@@ -153,13 +144,9 @@ public abstract class Generico<T> implements Dao<T>, Serializable {
                 }
             }
         } catch (NoResultException ex) {
-            LOGGER.info("Infomação não encontrada" + ex.getMessage());
+            LOGGER.info("Infoma\u00e7\u00e3o n\u00e3o encontrada{0}" + ex.getMessage());
         }
         return true;
-    }
-
-    public EntityManager getEntityManager() {
-        return entityManager;
     }
 
     public void setEntityManager(EntityManager entityManager) {

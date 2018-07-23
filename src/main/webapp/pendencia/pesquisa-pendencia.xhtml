@@ -43,7 +43,7 @@
                     </f:facet>
 
                     <p:column headerText="Pendência" width="40%" filterMatchMode="contains" filterBy="#{pendencia.descricao}" filterStyle="width: 300px; display:none">
-                        <h:outputText id="nome" value="#{pendencia.descricao}"/>
+                        <h:outputText id="nome" value="#{pendencia.descricao}" style="text-transform: uppercase"/>
                     </p:column>
 
                     <p:column headerText="Localização" width="20%" filterMatchMode="contains" filterBy="#{pendencia.localizacaoFisica}" filterStyle="width: 300px; display:none">
@@ -87,7 +87,7 @@
                     </p:column>
 
                     <f:facet name="footer">
-                        Há #{fn:length(pendenciaBean.pendenciasAbertas)} pendências em aberto.
+                        Há #{fn:length(pendenciaBean.pendenciasAbertas)} #{fn:length(pendenciaBean.pendenciasAbertas) == 1 ? "pendência" : "pendências"} em aberto.
                     </f:facet>
 
                 </p:dataTable>
