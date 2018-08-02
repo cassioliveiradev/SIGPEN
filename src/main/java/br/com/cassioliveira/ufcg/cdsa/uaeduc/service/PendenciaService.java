@@ -85,8 +85,12 @@ public class PendenciaService implements Serializable {
      */
     public void checaCampoDuplicado(String campo, Object valor, Long id, Pendencia pendencia) {
         pendencias.checaCampoDuplicado(campo, valor, null, pendencia);
-    }
+    } 
 
+        public List<Pendencia> pendenciasAbertas(String status){
+        return pendencias.pendenciasAbertas(status);
+    }
+    
 //    public List<String> pendenciasPorProfessor(String professor){
 //        return pendencias.pendenciasPorProfessor(professor);
 //    }

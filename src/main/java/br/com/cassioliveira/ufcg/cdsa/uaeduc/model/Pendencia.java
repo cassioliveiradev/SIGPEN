@@ -25,6 +25,7 @@ import lombok.Data;
 @Entity
 @Data
 //@NamedQuery(name = "Pendencias.porProfessor", query = "SELECT p.descricao FROM Pendencia p WHERE p.professor = :nomeProfessor")
+@NamedQuery(name = "Pendencias.abertas", query = "SELECT p.professor, p.descricao, p.dataEntregaDestinatario, p.dataRecebimentoSecretaria FROM Pendencia p WHERE p.status=:status ORDER BY p.professor ASC")
 public class Pendencia implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -71,7 +72,7 @@ public class Pendencia implements Serializable {
 
     @Column(name = "nome_usuario")
     private String nomeUsuario;
-    
+
     @Column(name = "motivo_baixa")
     private String motivoBaixa;
 
@@ -81,9 +82,8 @@ public class Pendencia implements Serializable {
 //    @ManyToMany(targetEntity = Professor.class, cascade = CascadeType.ALL)
 //    @JoinTable(name = "professor")
 //    private List<Professor> professores = new ArrayList<>();
-    
     @PostConstruct
-    public void init(){
+    public void init() {
         setStatus(StatusPendencia.ABERTA);
     }
 }

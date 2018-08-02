@@ -16,6 +16,12 @@ public class Pendencias extends Generico<Pendencia> implements Serializable {
     public Pendencias() {
         super(Pendencia.class);
     }
+    
+    public List<Pendencia> pendenciasAbertas(String status) {
+        List<Pendencia> pendenciasAbertas = new ArrayList<>();
+        getEntityManager().createNamedQuery("Pendencias.abertas", Pendencia.class).setParameter("status", status).getResultList();
+        return pendenciasAbertas;
+    }
 
 //    public List<String> pendenciasPorProfessor(String professor) {
 //        List<String> pendencias = new ArrayList<>();

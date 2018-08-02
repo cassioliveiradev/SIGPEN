@@ -3,6 +3,8 @@ package br.com.cassioliveira.ufcg.cdsa.uaeduc.util.jsf;
 import java.io.IOException;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
+import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -15,7 +17,7 @@ import org.apache.commons.logging.LogFactory;
 public class FacesUtil {
 
     private static final Log LOGGER = LogFactory.getLog(FacesUtil.class);
-
+    
     private FacesUtil() {
     }
 
@@ -84,5 +86,13 @@ public class FacesUtil {
         } catch (IOException ex) {
             LOGGER.error(FacesUtil.class.getName() + ex);
         }
+    }
+    
+    public static String caminhoContexto(String caminho){
+        return FacesContext.getCurrentInstance().getExternalContext().getRealPath(caminho);
+    }
+    
+    public static HttpServletResponse responseHTTP(){
+        return (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
     }
 }
