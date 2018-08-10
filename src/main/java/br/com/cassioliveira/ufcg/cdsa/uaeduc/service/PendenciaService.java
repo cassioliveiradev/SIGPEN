@@ -5,6 +5,7 @@ import br.com.cassioliveira.ufcg.cdsa.uaeduc.exception.NegocioException;
 import br.com.cassioliveira.ufcg.cdsa.uaeduc.model.Pendencia;
 import br.com.cassioliveira.ufcg.cdsa.uaeduc.repository.Pendencias;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
@@ -85,13 +86,27 @@ public class PendenciaService implements Serializable {
      */
     public void checaCampoDuplicado(String campo, Object valor, Long id, Pendencia pendencia) {
         pendencias.checaCampoDuplicado(campo, valor, null, pendencia);
-    } 
-
-        public List<Pendencia> pendenciasAbertas(String status){
-        return pendencias.pendenciasAbertas(status);
     }
-    
+
+    public List<Pendencia> pendencias(String status) {
+        ArrayList<Pendencia> pendenciasAbertas = new ArrayList<>();
+        ArrayList<Pendencia> pendenciasFechadas = new ArrayList<>();
+        for (Pendencia pendencia : findAll()) {
+            if (status.equals(pendencia.getStatus().ABERTA.toString())) {
+                pendenciasAbertas.add(pendencia);
+            } else {
+                pendenciasFechadas.add(pendencia);
+            }
+        }
+        if (status.equals(StatusPendencia.ABERTA.toString())) {
+            return pendenciasAbertas;
+        }
+
+        return pendenciasFechadas;
+    }
+
 //    public List<String> pendenciasPorProfessor(String professor){
 //        return pendencias.pendenciasPorProfessor(professor);
+//    ********************status.equals(StatusPendencia.ABERTA.toString())
 //    }
 }

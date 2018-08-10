@@ -13,7 +13,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
-import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import lombok.Data;
@@ -25,7 +24,7 @@ import lombok.Data;
 @Entity
 @Data
 //@NamedQuery(name = "Pendencias.porProfessor", query = "SELECT p.descricao FROM Pendencia p WHERE p.professor = :nomeProfessor")
-@NamedQuery(name = "Pendencias.abertas", query = "SELECT p.professor, p.descricao, p.dataEntregaDestinatario, p.dataRecebimentoSecretaria FROM Pendencia p WHERE p.status=:status ORDER BY p.professor ASC")
+//@NamedQuery(name = "Pendencias.abertas", query = "SELECT p.professor, p.descricao, p.dataEntregaDestinatario, p.dataRecebimentoSecretaria FROM Pendencia p WHERE p.status=:status ORDER BY p.professor ASC")
 public class Pendencia implements Serializable {
 
     private static final long serialVersionUID = 1L;

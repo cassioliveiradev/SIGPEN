@@ -49,6 +49,25 @@ public class GeraRelatorios {
         FacesContext.getCurrentInstance().responseComplete();
     }
     
+    public void gerarPdf(String jasperFileName, String pdfFileName, List<Pendencia> dados) throws JRException, IOException {
+
+        Map<String, Object> parametros = new HashMap<>();
+        String logo = FacesUtil.caminhoContexto("/resources/images/ufcg-central-200.png");
+        parametros.put("logo", logo);
+        String caminhoArquivoJasper = caminhoRelatorio() + jasperFileName;
+        File arquivoJasper = new File(caminhoArquivoJasper);
+        
+        JasperPrint jasperPrint = JasperFillManager.fillReport(caminhoArquivoJasper, parametros, new JRBeanCollectionDataSource(dados));
+        HttpServletResponse response = (HttpServletResponse) FacesUtil.responseHTTP();
+        
+        try (ServletOutputStream stream = response.getOutputStream()) {
+            JasperExportManager.exportReportToPdfStream(jasperPrint, stream);
+            
+            stream.flush();
+        }
+        FacesContext.getCurrentInstance().responseComplete();
+    }
+    
 //    ServletOutputStream stream = response.getOutputStream();
 //        JasperExportManager.exportReportToPdfStream(jasperPrint, stream);
 //        

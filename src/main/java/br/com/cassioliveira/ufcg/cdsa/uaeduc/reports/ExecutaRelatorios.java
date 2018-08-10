@@ -1,14 +1,13 @@
 package br.com.cassioliveira.ufcg.cdsa.uaeduc.reports;
 
-import br.com.cassioliveira.ufcg.cdsa.uaeduc.controller.PendenciaBean;
-import br.com.cassioliveira.ufcg.cdsa.uaeduc.controller.ProfessorBean;
-import br.com.cassioliveira.ufcg.cdsa.uaeduc.model.Pendencia;
 import br.com.cassioliveira.ufcg.cdsa.uaeduc.service.PendenciaService;
+import br.com.cassioliveira.ufcg.cdsa.uaeduc.service.ProfessorService;
 import java.io.IOException;
 import java.io.Serializable;
 import java.sql.SQLException;
-import javax.enterprise.inject.Model;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 import lombok.Getter;
 import lombok.Setter;
 import net.sf.jasperreports.engine.JRException;
@@ -26,9 +25,10 @@ import net.sf.jasperreports.engine.JRException;
  *
  * @author Cássio Oliveira <cassio@cassioliveira.com.br>
  */
-@Model
+@Named
+@ViewScoped
 public class ExecutaRelatorios implements Serializable {
-    
+
 //    @Inject
 //    private FacesContext facesContext;
 //
@@ -54,24 +54,19 @@ public class ExecutaRelatorios implements Serializable {
 //
 //        facesContext.responseComplete();
 //    }
-    @Inject
-    private GeraRelatorios geradorRelatorios;
     
+    private final GeraRelatorios geradorRelatorios = new GeraRelatorios();
+
     @Inject
     @Getter
     @Setter
     private PendenciaService pendenciaService;
-    
+
     @Inject
     @Getter
     @Setter
-    private PendenciaBean pendenciaBean;
-    
-    @Inject
-    @Getter
-    @Setter
-    private ProfessorBean professorBean;
-    
+    private ProfessorService professorService;
+
     /**
      * Emite um relatório com todos os pedidos emitidos em que o status esteja
      * 'ABERTO'
@@ -80,20 +75,22 @@ public class ExecutaRelatorios implements Serializable {
      * @throws net.sf.jasperreports.engine.JRException
      * @throws java.io.IOException
      */
-//    public void emitirRelatorioPendenciasAbertas() throws SQLException, JRException, IOException {
-//        geradorRelatorios.gerarPdfDownload("/relatorio_pendencias_abertas.jasper", "Relatorio de pendencias abertas.pdf", pendenciaBean.getPendenciasAbertas());
-//    }
+    public void emitirRelatorioPendenciasAbertas() throws SQLException, JRException, IOException {
+        geradorRelatorios.gerarPdf("/relatorio_pendencias_abertas.jasper", "Relatório de pendências abertas.pdf", pendenciaService.pendencias("ABERTA"));
+    }
 
-//    /**
-//     * Emite um relatório com todos os pedidos emitidos em que o status esteja
-//     * 'FECHADO'
-//     *
-//     * @throws java.sql.SQLException
-//     */
-//    public void emitirRelatorioPendenciasFechadas() throws SQLException {
-//        geradorRelatorios.preparaRelatorioPdf("/relatorio_pendencias_fechadas.jasper", "Relatorio de pendencias fechadas.pdf");
-//    }
-//
+    /**
+     * Emite um relatório com todos os pedidos emitidos em que o status esteja
+     * 'FECHADO'
+     *
+     * @throws java.sql.SQLException
+     * @throws net.sf.jasperreports.engine.JRException
+     * @throws java.io.IOException
+     */
+    public void emitirRelatorioPendenciasFechadas() throws SQLException, JRException, IOException {
+        geradorRelatorios.gerarPdf("/relatorio_pendencias_fechadas.jasper", "Relatório de pendências fechadas.pdf", pendenciaService.pendencias("FECHADA"));
+    }
+
     /**
      * Emite um relatório com todos os professores cadastrados.
      *
@@ -102,6 +99,6 @@ public class ExecutaRelatorios implements Serializable {
      * @throws java.io.IOException
      */
     public void emitirRelatorioTodosProfessores() throws SQLException, JRException, IOException {
-        geradorRelatorios.gerarPdfDownload("/relatorio_professores_cadastrados.jasper", "Relatorio de professores cadastrados.pdf", professorBean.getListaProfessores());
+        geradorRelatorios.gerarPdfDownload("/relatorio_professores_cadastrados.jasper", "Relatorio de professores cadastrados.pdf", professorService.findAll());
     }
 }
