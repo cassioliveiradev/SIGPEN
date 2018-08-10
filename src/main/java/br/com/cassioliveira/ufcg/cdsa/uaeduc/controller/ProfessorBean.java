@@ -1,9 +1,12 @@
 package br.com.cassioliveira.ufcg.cdsa.uaeduc.controller;
 
+import br.com.cassioliveira.ufcg.cdsa.uaeduc.enumeration.CategoriasServidor;
+import br.com.cassioliveira.ufcg.cdsa.uaeduc.enumeration.Estados;
 import br.com.cassioliveira.ufcg.cdsa.uaeduc.model.Professor;
 import br.com.cassioliveira.ufcg.cdsa.uaeduc.service.ProfessorService;
 import br.com.cassioliveira.ufcg.cdsa.uaeduc.util.jsf.FacesUtil;
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Model;
@@ -34,6 +37,12 @@ public class ProfessorBean implements Serializable {
     private ProfessorService professorService;
 
     @Getter
+    private List<CategoriasServidor> categorias;
+
+    @Getter
+    private List<Estados> estados;
+
+    @Getter
     private List<Professor> listaProfessores;
 
     public ProfessorBean() {
@@ -44,17 +53,19 @@ public class ProfessorBean implements Serializable {
     @PostConstruct
     public void init() {
         this.listaProfessores = professorService.findAll();
+        this.categorias = Arrays.asList(CategoriasServidor.values());
+        this.estados = Arrays.asList(Estados.values());
     }
 
     /**
      * Permite que seja adicionado um novo professor ou que o nome do professor
      * existente seja alterado.
      */
-    public void editar() {
+    public void salvar() {
         this.professorService.editar(professor);
-        FacesUtil.mensagemSucesso("Professor atualizado com sucesso!");
-        FacesUtil.redirecionaPara("cadastro-professor.xhtml");
-        professor = new Professor();
+        FacesUtil.mensagemSucesso("Salvo com sucesso!");
+        this.listaProfessores = professorService.findAll();
+        getLimpar();
     }
 
     /**
@@ -62,7 +73,7 @@ public class ProfessorBean implements Serializable {
      */
     public void delete() {
         this.professorService.delete(professorSelecionado);
-        FacesUtil.redirecionaPara("cadastro-professor.xhtml");
+        this.listaProfessores = professorService.findAll();
         FacesUtil.mensagemSucesso("Professor excluido com sucesso!");
     }
 
@@ -74,6 +85,13 @@ public class ProfessorBean implements Serializable {
      */
     public boolean getEditando() {
         return this.professor.getId() != null;
+    }
+
+    /**
+     * Cria uma nova instância do professor.
+     */
+    public void getLimpar() {
+        this.professor = new Professor();
     }
 
 }

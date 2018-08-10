@@ -1,5 +1,6 @@
 package br.com.cassioliveira.ufcg.cdsa.uaeduc.service;
 
+import br.com.cassioliveira.ufcg.cdsa.uaeduc.enumeration.Estados;
 import br.com.cassioliveira.ufcg.cdsa.uaeduc.exception.NegocioException;
 import br.com.cassioliveira.ufcg.cdsa.uaeduc.model.Professor;
 import br.com.cassioliveira.ufcg.cdsa.uaeduc.repository.Professores;
@@ -33,6 +34,11 @@ public class ProfessorService implements Serializable {
 
     @Transactional
     public void editar(Professor professor) {
+        if (professor.getEndereco().getEstado() == null) {
+            professor.getEndereco().setEstado(Estados.PB);
+            this.professores.salvar(professor);
+        }
+            
         this.professores.editar(professor);
     }
 

@@ -7,7 +7,9 @@
 	min-height: 50px;
 	z-index: 10;
 	
-	background-color: #1e94d2;
+        /*#1e94d2*/
+        /*#2399E5*/
+	background-color: #2399E5;
 }
 
 .aw-topbar > img {
