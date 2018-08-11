@@ -43,10 +43,6 @@ public class PendenciaBean implements Serializable {
     @Setter
     private PendenciaService pendenciaService;
 
-//    @Inject
-//    @Getter
-//    @Setter
-//    private Professor professor;
     @Getter
     private List<Pendencia> pendencias;
 
@@ -68,7 +64,7 @@ public class PendenciaBean implements Serializable {
     @PostConstruct
     public void init() {
         this.localizacoesFisicas = Arrays.asList(LocalizacaoFisicaUAEDUC.values());
-        this.pendencias = pendenciaService.findAll();
+        this.pendencias = pendenciaService.todas();
     }
 
     public void salvar() {
@@ -97,53 +93,32 @@ public class PendenciaBean implements Serializable {
         FacesUtil.redirecionaPara("pesquisa-pendencia.xhtml");
     }
 
-    public void delete() {
-        this.pendenciaService.delete(pendenciaSelecionada);
+    public void excluir() {
+        this.pendenciaService.excluir(pendenciaSelecionada);
         FacesUtil.redirecionaPara("pendencias-fechadas.xhtml");
         FacesUtil.mensagemSucesso("Pendência excluida com sucesso!");
     }
 
-//    public void pendenciasPorProfessor(String professor){
-//        pendenciaService.pendenciasPorProfessor(professor);
-//    }
     /**
-     * Verifica e retorna todas as pendências cadastradas e em aberto, desde que
-     * o status das mesmas esteja como 'Aberta'.
+     * Retorna todas as pendências com status "ABERTA"
      *
      * @see StatusPendencia
      *
      * @return
      */
     public List<Pendencia> getPendenciasAbertas() {
-        List<Pendencia> pendenciasAbertas = new ArrayList<>();
-
-        for (Pendencia pendenciaAberta : pendencias) {
-            if (pendenciaAberta.getStatus() == StatusPendencia.ABERTA) {
-                pendenciasAbertas.add(pendenciaAberta);
-            }
-        }
-
-        return pendenciasAbertas;
+        return pendenciaService.pendencias(StatusPendencia.ABERTA);
     }
 
     /**
-     * Verifica e retorna todas as pendências cadastradas e finalizadas, desde
-     * que o status das mesmas esteja como 'Fechada'.
+     * Retorna todas as pendências com status "FECHADA"
      *
      * @see StatusPendencia
      *
      * @return
      */
     public List<Pendencia> getPendenciasFechadas() {
-        List<Pendencia> pendenciasFechadas = new ArrayList<>();
-
-        for (Pendencia pendenciaFechada : pendencias) {
-            if (pendenciaFechada.getStatus() == StatusPendencia.FECHADA) {
-                pendenciasFechadas.add(pendenciaFechada);
-            }
-        }
-
-        return pendenciasFechadas;
+        return pendenciaService.pendencias(StatusPendencia.FECHADA);
     }
 
     /**

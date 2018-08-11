@@ -6,6 +6,7 @@ import br.com.cassioliveira.ufcg.cdsa.uaeduc.model.Pendencia;
 import br.com.cassioliveira.ufcg.cdsa.uaeduc.repository.Pendencias;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
@@ -48,8 +49,8 @@ public class PendenciaService implements Serializable {
      * @throws NegocioException
      */
     @Transactional
-    public void delete(Pendencia pendencia) throws NegocioException {
-        pendencias.delete(findById(pendencia.getId()));
+    public void excluir(Pendencia pendencia) throws NegocioException {
+        pendencias.excluir(porId(pendencia.getId()));
     }
 
     /**
@@ -59,8 +60,8 @@ public class PendenciaService implements Serializable {
      * @param id
      * @return
      */
-    public Pendencia findById(Long id) {
-        return pendencias.findById(id);
+    public Pendencia porId(Long id) {
+        return pendencias.porId(id);
     }
 
     /**
@@ -70,8 +71,8 @@ public class PendenciaService implements Serializable {
      *
      * @return
      */
-    public List<Pendencia> findAll() {
-        return pendencias.findAll();
+    public List<Pendencia> todas() {
+        return pendencias.todos();
     }
 
     /**
@@ -88,25 +89,32 @@ public class PendenciaService implements Serializable {
         pendencias.checaCampoDuplicado(campo, valor, null, pendencia);
     }
 
-    public List<Pendencia> pendencias(String status) {
-        ArrayList<Pendencia> pendenciasAbertas = new ArrayList<>();
-        ArrayList<Pendencia> pendenciasFechadas = new ArrayList<>();
-        for (Pendencia pendencia : findAll()) {
-            if (status.equals(pendencia.getStatus().ABERTA.toString())) {
-                pendenciasAbertas.add(pendencia);
-            } else {
-                pendenciasFechadas.add(pendencia);
+    /**
+     * Filtra as pendências cadastradas e as retorna de acordo com seu status.
+     *
+     * @param status
+     * @see StatusPendencia
+     *
+     * @return
+     */
+    public List<Pendencia> pendencias(StatusPendencia status) {
+        List<Pendencia> pendenciasFiltradas = new ArrayList<>();
+
+        for (Pendencia pendencia : todas()) {
+            if (pendencia.getStatus() == status) {
+                pendenciasFiltradas.add(pendencia);
             }
         }
-        if (status.equals(StatusPendencia.ABERTA.toString())) {
-            return pendenciasAbertas;
-        }
 
-        return pendenciasFechadas;
+        return pendenciasFiltradas;
     }
 
 //    public List<String> pendenciasPorProfessor(String professor){
-//        return pendencias.pendenciasPorProfessor(professor);
-//    ********************status.equals(StatusPendencia.ABERTA.toString())
+//        List<String> pendenciasPorProfessor = new ArrayList<>();
+//        
+//        for (Pendencia pendencia : pendencias.pendenciasPorProfessor(professor)) {
+//            pendenciasPorProfessor.add(pendencia.getDescricao());
+//        }
+//        return pendenciasPorProfessor;
 //    }
 }

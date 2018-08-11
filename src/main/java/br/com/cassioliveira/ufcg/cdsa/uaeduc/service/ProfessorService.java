@@ -49,8 +49,8 @@ public class ProfessorService implements Serializable {
      * @throws NegocioException
      */
     @Transactional
-    public void delete(Professor professor) throws NegocioException {
-        professores.delete(findById(professor.getId()));
+    public void excluir(Professor professor) throws NegocioException {
+        professores.excluir(porId(professor.getId()));
     }
 
     /**
@@ -60,8 +60,8 @@ public class ProfessorService implements Serializable {
      * @param id
      * @return
      */
-    public Professor findById(Long id) {
-        return professores.findById(id);
+    public Professor porId(Long id) {
+        return professores.porId(id);
     }
 
     /**
@@ -71,8 +71,8 @@ public class ProfessorService implements Serializable {
      *
      * @return
      */
-    public List<Professor> findAll() {
-        return professores.findAll();
+    public List<Professor> todos() {
+        return professores.todos();
     }
 
     /**

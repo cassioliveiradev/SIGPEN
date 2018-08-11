@@ -6,7 +6,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.validator.constraints.br.CPF;
@@ -36,8 +35,11 @@ public class Professor extends Pessoa implements Serializable {
     @Column(name = "descricao_funcao", length = 100)
     private String descricaoFuncao;
 
-    @Column(name = "tem_funcao", length = 100)
+    @Column(name = "tem_funcao")
     private boolean temFuncao;
+    
+    @Column(name = "dedicacao_exclusiva")
+    private boolean dedicacaoExclusiva;
 
     @CPF
     @Column(name = "cpf", unique = true)

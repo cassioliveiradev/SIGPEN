@@ -22,7 +22,8 @@
                                   outcome="/pendencia/pesquisa-pendencia"/>
 
                         <p:commandButton id="relatorioPendenciasFechadas" action="#{executaRelatorios.emitirRelatorioPendenciasFechadas}" 
-                                         ajax="false" icon="fa fa-file-pdf-o" value="Emitir relatorio" onclick="this.form.target = '_blank'"/>
+                                         ajax="false" icon="fa fa-file-pdf-o" value="Emitir relatorio" onclick="this.form.target = '_blank'"
+                                         disabled="#{pendenciaBean.pendenciasFechadas.size() == 0}"/>
                     </f:facet>
                 </p:toolbar>
 
@@ -72,7 +73,7 @@
                         </p:button>
 
                         <p:commandButton id="botaoExcluir" title="Excluir" icon="ui-icon ui-icon-trash" style="font-size: 10px"
-                                         action="#{pendenciaBean.delete}" update="datatablePesquisaPendencia">
+                                         action="#{pendenciaBean.excluir}" update="datatablePesquisaPendencia">
                             <f:setPropertyActionListener value="#{pendencia}" target="#{pendenciaBean.pendenciaSelecionada}"/>
                             <p:tooltip for="botaoExcluir" value="Exclui a pendencia selecionada"/>
 

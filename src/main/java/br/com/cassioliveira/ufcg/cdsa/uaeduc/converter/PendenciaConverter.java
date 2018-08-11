@@ -44,7 +44,7 @@ public class PendenciaConverter implements Converter {
         Pendencia objectToReturn = null;
 
         if (value != null) {
-            objectToReturn = this.pendenciaService.findById(new Long(value));
+            objectToReturn = this.pendenciaService.porId(new Long(value));
         }
         return objectToReturn;
     }

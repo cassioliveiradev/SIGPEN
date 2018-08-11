@@ -16,6 +16,7 @@
     <ui:define name="content">
         <p:fieldset id="fieldsetProfessor" legend="Cadastro de professores"   style="margin-top: 80px">
 
+
             <p:messages closable="true" severity="info,warn,error">
                 <p:autoUpdate/>
             </p:messages>
@@ -29,7 +30,7 @@
 
                             <h:panelGroup>
                                 <div style="border: 0px solid red; width: 100px; position: relative">
-                                    <p:graphicImage library="sigeris" name="imagens/avatar.png" style="height: 95px; margin-bottom: 5px; text-align: center"/>
+                                    <p:graphicImage library="images" name="avatar.png" style="height: 95px; margin-bottom: 5px; text-align: center"/>
 
                                     <p:fileUpload id="photoUpload" cancelLabel="Cancelar" dragDropSupport="true" fileLimit="1" label="Selecione" 
                                                   mode="simple" uploadLabel="Enviar..." skinSimple="true" style="width: 100px; font-size: 12px"/>
@@ -45,10 +46,10 @@
                                     <p:inputText id="name" value="#{professorBean.professor.nome}" size="35" maxlength="200"/>
 
                                     <p:outputLabel for="registration" value="Matrícula: "/>
-                                    <p:inputMask id="registration" value="#{professorBean.professor.matricula}" size="13" maxlength="20" mask="9.99999-9"/>
+                                    <p:inputText id="registration" value="#{professorBean.professor.matricula}" size="13" maxlength="10"/>
 
                                     <p:outputLabel for="sexo" value="Sexo: " style="margin-right: 42px;"/>
-                                    <p:selectOneMenu id="sexo" value="#{professorBean.professor.sexo}" style="width: 140px">
+                                    <p:selectOneMenu id="sexo" value="#{professorBean.professor.sexo}" style="width: 100px">
                                         <f:selectItem noSelectionOption="true"/>
                                         <f:selectItem itemLabel="Masculino" itemValue="M"/>
                                         <f:selectItem itemLabel="Feminino" itemValue="F"/>
@@ -69,22 +70,18 @@
                     </p:tab>
 
                     <p:tab title="Contato">
-                        <h:panelGrid columns="3">
-                            <p:outputLabel for="phone1" value="Telefone: "/>
-                            <h:panelGroup>
-                                <p:inputText id="phone1" value="#{professorBean.professor.celular}" size="9" maxlength="15" class="phone"/>
-                                <p:outputLabel for="phone2" value="Celular: " style="margin-left: 5px"/>
-                                <p:inputText id="phone2" value="#{professorBean.professor.telefone}" size="9" maxlength="20" class="phone"/>
-                            </h:panelGroup>
-                            <p:outputLabel/>
+                        <h:panelGrid columns="2">
+                            <p:outputLabel for="phone1" value="Celular: "/>
+                            <p:inputText id="phone1" value="#{professorBean.professor.celular}" size="15" maxlength="15" class="phone"/>
+
+                            <p:outputLabel for="phone2" value="Telefone: "/>
+                            <p:inputText id="phone2" value="#{professorBean.professor.telefone}" size="15" maxlength="15" class="phone"/>
 
                             <p:outputLabel for="email" value="E-mail: "/>
-                            <p:inputText id="email" value="#{professorBean.professor.email}" size="33" maxlength="100"/>
-                            <p:outputLabel/>
+                            <p:inputText id="email" value="#{professorBean.professor.email}" size="35" maxlength="100"/>
 
                             <p:outputLabel for="email2" value="E-mail 2: "/>
-                            <p:inputText id="email2" value="#{professorBean.professor.email2}" size="33" maxlength="100"/>
-                            <p:outputLabel/>
+                            <p:inputText id="email2" value="#{professorBean.professor.email2}" size="35" maxlength="100"/>
                         </h:panelGrid>
                     </p:tab>
 
@@ -92,44 +89,29 @@
 
                         <h:panelGrid columns="2">
 
-                            <h:panelGroup>
-                                <p:outputLabel for="estado" value="Estado: "/>
-                                <p:selectOneMenu id="estado" value="#{professorBean.professor.endereco.estado}" style="width: 310px; margin-left: 2px">
-                                    <f:selectItem noSelectionOption="true"/>
-                                    <f:selectItems var="estado" value="#{professorBean.estados}" itemLabel="#{estado.description}" itemValue="#{estado}"/>
-                                </p:selectOneMenu>
-                            </h:panelGroup>
-                            <p:outputLabel/>
+                            <p:outputLabel for="estado" value="Estado: "/>
+                            <p:selectOneMenu id="estado" value="#{professorBean.professor.endereco.estado}" style="width: 261px">
+                                <f:selectItem noSelectionOption="true"/>
+                                <f:selectItems var="estado" value="#{professorBean.estados}" itemLabel="#{estado.description}" itemValue="#{estado}"/>
+                            </p:selectOneMenu>
 
-                            <h:panelGroup>
-                                <p:outputLabel for="cidade" value="Cidade: " style="margin-right: 2px"/>
-                                <p:inputText id="cidade" value="#{professorBean.professor.endereco.cidade}" size="32" maxlength="200"/>
-                            </h:panelGroup>
-                            <p:outputLabel/>
+                            <p:outputLabel for="cidade" value="Cidade: "/>
+                            <p:inputText id="cidade" value="#{professorBean.professor.endereco.cidade}" size="33" maxlength="200"/>
 
-                            <h:panelGroup>
-                                <p:outputLabel for="rua" value="Rua: " style="margin-right: 22px"/>
-                                <p:inputText id="rua" value="#{professorBean.professor.endereco.rua}" size="24" maxlength="200"/>
+                            <p:outputLabel for="rua" value="Rua: "/>
+                            <p:inputText id="rua" value="#{professorBean.professor.endereco.rua}" size="33" maxlength="200"/>
 
-                                <p:inputText id="numero" value="#{professorBean.professor.endereco.numero}" size="2" maxlength="5" placeholder="Nº" style="margin-left: 1px"/>
-                                <p:outputLabel/>
-                            </h:panelGroup>
-                            <p:outputLabel/>
+                            <p:outputLabel for="numero" value="Número: "/>
+                            <p:inputText id="numero" value="#{professorBean.professor.endereco.numero}" size="20" maxlength="5"/>
 
-                            <h:panelGroup>
-                                <p:outputLabel for="bairro" value="Bairro: " style="margin-right: 7px"/>
-                                <p:inputText id="bairro" value="#{professorBean.professor.endereco.bairro}" size="17" maxlength="50"/>
+                            <p:outputLabel for="bairro" value="Bairro: "/>
+                            <p:inputText id="bairro" value="#{professorBean.professor.endereco.bairro}" size="20" maxlength="50"/>
 
-                                <p:outputLabel for="cep" value="CEP: "  style="margin-left: 5px"/>
-                                <p:inputMask id="cep" mask="99999-999" value="#{professorBean.professor.endereco.cep}" size="5" maxlength="9"/>
-                            </h:panelGroup>
-                            <p:outputLabel/>
+                            <p:outputLabel for="cep" value="CEP: "/>
+                            <p:inputMask id="cep" mask="99999-999" value="#{professorBean.professor.endereco.cep}" size="20" maxlength="9"/>
 
-                            <h:panelGroup>
-                                <p:outputLabel for="complemento" value="Complemento: " style="margin-right: 10px"/>
-                                <p:inputText id="complemento" value="#{professorBean.professor.endereco.complemento}" size="26" maxlength="200"/>
-                            </h:panelGroup>
-                            <p:outputLabel/>
+                            <p:outputLabel for="complemento" value="Complemento: "/>
+                            <p:inputText id="complemento" value="#{professorBean.professor.endereco.complemento}" size="20" maxlength="200"/>
 
                         </h:panelGrid>
 
@@ -150,38 +132,36 @@
                         <h:panelGrid columns="2" cellpadding="0" cellspacing="2">
 
                             <p:outputLabel for="regimeTrabalho" value="Carga horária: "/>
-                            <h:panelGroup>
-                                <h:panelGrid columns="2">
-                                    <p:selectOneRadio id="regimeTrabalho" value="#{professorBean.professor.regimeTrabalho}">
-                                        <f:selectItem itemLabel="T20" itemValue="T20"/>
-                                        <f:selectItem itemLabel="T40" itemValue="T40"/>
-                                    </p:selectOneRadio>
-                                    <p:selectBooleanCheckbox id="dedicacao-exclusiva" itemLabel="DE"/>
-                                </h:panelGrid>
-                                <p:tooltip for="dedicacao-exclusiva" value="Dedicação Exclusiva"/>
-                            </h:panelGroup>
+                            <p:selectOneRadio id="regimeTrabalho" value="#{professorBean.professor.regimeTrabalho}">
+                                <f:selectItem itemLabel="T20" itemValue="T20"/>
+                                <f:selectItem itemLabel="T40" itemValue="T40"/>
+                            </p:selectOneRadio>
+                            
+                            <p:outputLabel for="dedicacaoExclusiva" value="Dedicação exclusiva: "/>
+                            <p:selectOneRadio id="dedicacaoExclusiva" value="#{professorBean.professor.dedicacaoExclusiva}">
+                                <f:selectItem id="de-yes" itemLabel="Sim" itemValue="SIM"/>
+                                <f:selectItem id="de-no" itemLabel="Não" itemValue="NAO"/>
+                            </p:selectOneRadio>
 
                             <p:outputLabel for="categoria" value="Categoria: "/>
                             <p:selectOneRadio id="categoria" value="#{professorBean.professor.categoria}">
                                 <f:selectItems var="categoria" itemLabel="#{categoria.description}" itemValue="#{categoria}" value="#{professorBean.categorias}"/>
                             </p:selectOneRadio>
 
-                            <p:outputLabel for="temFuncao" value="Função"/>
-                            <h:panelGroup>
-                                <h:panelGrid columns="2">
-                                    <p:selectOneRadio id="temFuncao" value="#{professorBean.professor.temFuncao}">
-                                        <f:selectItem id="function-yes" itemLabel="Sim" itemValue="SIM"/>
-                                        <f:selectItem id="function-no" itemLabel="Não" itemValue="NAO"/>
-                                        <f:ajax execute="temFuncao" render="function-description" event="change"/>
-                                    </p:selectOneRadio>
-                                    <h:panelGroup id="function-description" rendered="#{professorBean.professor.temFuncao eq 'SIM'}">
-                                        <p:inputText id="funcionDescription" value="#{professorBean.professor.descricaoFuncao}" size="10"/>
-                                    </h:panelGroup>
-                                </h:panelGrid>
-                            </h:panelGroup>
+                            <p:outputLabel for="temFuncao" value="Função?"/>
+                            <p:selectOneRadio id="temFuncao" value="#{professorBean.professor.temFuncao}">
+                                <f:selectItem id="function-yes" itemLabel="Sim" itemValue="SIM"/>
+                                <f:selectItem id="function-no" itemLabel="Não" itemValue="NAO"/>
+                                <!--<f:ajax execute="temFuncao" render="function-description" event="change"/>-->
+                            </p:selectOneRadio>
+                            
+                            <p:outputLabel for="funcionDescription" value="Desc. Função:"/>
+                            <p:inputText id="funcionDescription" value="#{professorBean.professor.descricaoFuncao}" style="width: 271px"/>
+<!--                                    <h:panelGroup id="function-description" rendered="#{professorBean.professor.temFuncao eq 'SIM'}">
+                        </h:panelGroup>-->
 
                             <p:outputLabel for="observations" value="Observações: " style="margin-right: 17px;"/>
-                            <p:inputTextarea id="observations" rows="3" cols="30" maxlength="255" value="#{professorBean.professor.observacoes}"
+                            <p:inputTextarea id="observations" rows="3" cols="32" maxlength="255" value="#{professorBean.professor.observacoes}"
                                              autoResize="false" counter="counterDescription" counterTemplate="{0} caracteres restantes"/>
                             <p:outputLabel/>
                             <p:outputLabel id="counterDescription" style="font-size: 12px;"/>
@@ -203,7 +183,8 @@
                             <p:resetInput target="formPesquisaProfessor"/>
                         </p:commandButton>
                         <p:commandButton id="relatorioProfessores" action="#{executaRelatorios.emitirRelatorioTodosProfessores}" immediate="true"
-                                         ajax="false" icon="fa fa-file-pdf-o" value="Emitir relatorio" onclick="this.form.target = '_blank'"/>
+                                         ajax="false" icon="fa fa-file-pdf-o" value="Emitir relatorio" onclick="this.form.target = '_blank'"
+                                         disabled="#{professorBean.listaProfessores.size() == 0}"/>
 
                     </f:facet>
                 </p:toolbar>
@@ -220,7 +201,7 @@
                             <p:inputText id="globalFilter" onkeyup="PF('pesquisaProfessor').filter()" style="width:300px" placeholder="Pesquise na tabela..."/>
                         </p:outputPanel>
                     </f:facet>
-                    
+
                     <p:column headerText="Matricula" width="10%" filterStyle="display:none" priority="1"
                               filterBy="#{professor.matricula}" filterMatchMode="contains" style="text-align: center">
                         <h:outputText value="#{professor.matricula}"/>
@@ -240,7 +221,7 @@
                               filterBy="#{professor.email}" filterMatchMode="contains">
                         <h:outputText value="#{professor.email}"/>
                     </p:column>
-                    
+
                     <p:column id="acoes" style="text-align: center" width="10%">
                         <p:button id="botaoEditar" title="Editar" icon="ui-icon ui-icon-pencil" style="font-size: 10px" >
                             <f:param  name="professor" value="#{professor.id}"/>

@@ -24,15 +24,15 @@ public class LoginService implements Serializable {
 
     @Transactional
     public void delete(Login product) throws NegocioException {
-        logins.delete(findById(product.getId()));
+        logins.excluir(findById(product.getId()));
     }
 
     public Login findById(Long id) {
-        return logins.findById(id);
+        return logins.porId(id);
     }
 
     public List<Login> findAll() {
-        return logins.findAll();
+        return logins.todos();
     }
 
 }

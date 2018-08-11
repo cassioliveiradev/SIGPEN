@@ -69,7 +69,7 @@ public abstract class Generico<T> implements Serializable {
      *
      * @param entity
      */
-    public void delete(T entity) {
+    public void excluir(T entity) {
         entityManager.remove(entity);
     }
 
@@ -80,7 +80,7 @@ public abstract class Generico<T> implements Serializable {
      *
      * @return
      */
-    public List<T> findAll() {
+    public List<T> todos() {
         CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
         cq.select(cq.from(entity));
         return getEntityManager().createQuery(cq).getResultList();
@@ -93,7 +93,7 @@ public abstract class Generico<T> implements Serializable {
      * @param id
      * @return
      */
-    public T findById(Long id) {
+    public T porId(Long id) {
         return entityManager.find(entity, id);
     }
 

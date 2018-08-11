@@ -1,5 +1,6 @@
 package br.com.cassioliveira.ufcg.cdsa.uaeduc.reports;
 
+import br.com.cassioliveira.ufcg.cdsa.uaeduc.enumeration.StatusPendencia;
 import br.com.cassioliveira.ufcg.cdsa.uaeduc.service.PendenciaService;
 import br.com.cassioliveira.ufcg.cdsa.uaeduc.service.ProfessorService;
 import java.io.IOException;
@@ -76,7 +77,7 @@ public class ExecutaRelatorios implements Serializable {
      * @throws java.io.IOException
      */
     public void emitirRelatorioPendenciasAbertas() throws SQLException, JRException, IOException {
-        geradorRelatorios.gerarPdf("/relatorio_pendencias_abertas.jasper", "Relatório de pendências abertas.pdf", pendenciaService.pendencias("ABERTA"));
+        geradorRelatorios.gerarPdf("/relatorio_pendencias_abertas.jasper", "Relatório de pendências abertas.pdf", pendenciaService.pendencias(StatusPendencia.ABERTA));
     }
 
     /**
@@ -88,7 +89,7 @@ public class ExecutaRelatorios implements Serializable {
      * @throws java.io.IOException
      */
     public void emitirRelatorioPendenciasFechadas() throws SQLException, JRException, IOException {
-        geradorRelatorios.gerarPdf("/relatorio_pendencias_fechadas.jasper", "Relatório de pendências fechadas.pdf", pendenciaService.pendencias("FECHADA"));
+        geradorRelatorios.gerarPdf("/relatorio_pendencias_fechadas.jasper", "Relatório de pendências fechadas.pdf", pendenciaService.pendencias(StatusPendencia.FECHADA));
     }
 
     /**
@@ -99,6 +100,6 @@ public class ExecutaRelatorios implements Serializable {
      * @throws java.io.IOException
      */
     public void emitirRelatorioTodosProfessores() throws SQLException, JRException, IOException {
-        geradorRelatorios.gerarPdfDownload("/relatorio_professores_cadastrados.jasper", "Relatorio de professores cadastrados.pdf", professorService.findAll());
+        geradorRelatorios.gerarPdfDownload("/relatorio_professores_cadastrados.jasper", "Relatorio de professores cadastrados.pdf", professorService.todos());
     }
 }

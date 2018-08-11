@@ -52,7 +52,7 @@ public class ProfessorBean implements Serializable {
 
     @PostConstruct
     public void init() {
-        this.listaProfessores = professorService.findAll();
+        this.listaProfessores = professorService.todos();
         this.categorias = Arrays.asList(CategoriasServidor.values());
         this.estados = Arrays.asList(Estados.values());
     }
@@ -64,7 +64,7 @@ public class ProfessorBean implements Serializable {
     public void salvar() {
         this.professorService.editar(professor);
         FacesUtil.mensagemSucesso("Salvo com sucesso!");
-        this.listaProfessores = professorService.findAll();
+        this.listaProfessores = professorService.todos();
         getLimpar();
     }
 
@@ -72,8 +72,8 @@ public class ProfessorBean implements Serializable {
      * Remove um professor cadastrado
      */
     public void delete() {
-        this.professorService.delete(professorSelecionado);
-        this.listaProfessores = professorService.findAll();
+        this.professorService.excluir(professorSelecionado);
+        this.listaProfessores = professorService.todos();
         FacesUtil.mensagemSucesso("Professor excluido com sucesso!");
     }
 

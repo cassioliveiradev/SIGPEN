@@ -44,7 +44,7 @@ public class ProfessorConverter implements Converter {
         Professor objectToReturn = null;
 
         if (value != null) {
-            objectToReturn = this.professorService.findById(new Long(value));
+            objectToReturn = this.professorService.porId(new Long(value));
         }
         return objectToReturn;
     }

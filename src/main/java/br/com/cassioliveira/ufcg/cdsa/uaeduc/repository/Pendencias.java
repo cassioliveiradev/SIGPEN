@@ -2,6 +2,7 @@ package br.com.cassioliveira.ufcg.cdsa.uaeduc.repository;
 
 import br.com.cassioliveira.ufcg.cdsa.uaeduc.model.Pendencia;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,9 +30,9 @@ public class Pendencias extends Generico<Pendencia> implements Serializable {
 //        System.out.println(pendenciasAbertas + "DAO: ###############>>>>>>>>>>>>>>>>>>>>");
 //        return pendenciasAbertas;
 //    }
-//    public List<String> pendenciasPorProfessor(String professor) {
-//        List<String> pendencias = new ArrayList<>();
-//        getEntityManager().createNamedQuery("Pendencias.porProfessor", Pendencia.class).setParameter("nomeProfessor", professor).getResultList();
-//        return pendencias;
-//    }
+    public List<Pendencia> pendenciasPorProfessor(String professor) {
+        List<Pendencia> pendenciasPorProfessor;
+        pendenciasPorProfessor = getEntityManager().createQuery("SELECT p.descricao FROM Pendencia p WHERE p.professor=:professor").getResultList();
+        return pendenciasPorProfessor;
+    }
 }

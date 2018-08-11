@@ -1,7 +1,6 @@
 package br.com.cassioliveira.ufcg.cdsa.uaeduc.model;
 
 import br.com.cassioliveira.ufcg.cdsa.uaeduc.enumeration.CategoriasServidor;
-import br.com.cassioliveira.ufcg.cdsa.uaeduc.enumeration.Estados;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
@@ -17,6 +16,8 @@ import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import lombok.Data;
@@ -47,7 +48,7 @@ public class Pessoa implements Serializable {
     @Column(name = "nome", nullable = false, length = 200)
     private String nome;
 
-    @Column(name = "matricula", length = 20)
+    @Column(name = "matricula", length = 10)
     private String matricula;
 
     @Column(name = "nome_social", length = 100)

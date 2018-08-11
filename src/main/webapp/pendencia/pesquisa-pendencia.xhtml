@@ -25,7 +25,8 @@
                                   outcome="/pendencia/pendencias-fechadas"/>
 
                         <p:commandButton id="relatorioPendencias" action="#{executaRelatorios.emitirRelatorioPendenciasAbertas}" 
-                                         ajax="false" icon="fa fa-file-pdf-o" value="Emitir relatorio" onclick="this.form.target = '_blank'"/>
+                                         ajax="false" icon="fa fa-file-pdf-o" value="Emitir relatorio" onclick="this.form.target = '_blank'"
+                                         disabled="#{pendenciaBean.pendenciasAbertas.size() == 0}"/>
                     </f:facet>
                 </p:toolbar>
 
@@ -43,7 +44,7 @@
                     </f:facet>
 
                     <p:column headerText="Pendência" width="40%" filterMatchMode="contains" filterBy="#{pendencia.descricao}" filterStyle="width: 300px; display:none">
-                        <h:outputText id="nome" value="#{pendencia.descricao}" style="text-transform: uppercase"/>
+                        <h:outputText id="nome" value="#{pendencia.descricao}"/>
                     </p:column>
 
                     <p:column headerText="Localização" width="20%" filterMatchMode="contains" filterBy="#{pendencia.localizacaoFisica}" filterStyle="width: 300px; display:none">
