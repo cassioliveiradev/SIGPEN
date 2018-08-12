@@ -16,8 +16,6 @@ import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import lombok.Data;
@@ -88,6 +86,8 @@ public class Pessoa implements Serializable {
 
     @Column(name = "observacoes")
     private String observacoes;
+    
+    private byte[] foto;
 
     @Embedded
     private Endereco endereco;

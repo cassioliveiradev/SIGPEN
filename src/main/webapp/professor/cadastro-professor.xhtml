@@ -16,27 +16,29 @@
     <ui:define name="content">
         <p:fieldset id="fieldsetProfessor" legend="Cadastro de professores"   style="margin-top: 80px">
 
-
             <p:messages closable="true" severity="info,warn,error">
                 <p:autoUpdate/>
             </p:messages>
 
-            <h:form id="formPesquisaProfessor">
+            <h:form id="formPesquisaProfessor" enctype="multipart/form-data">
 
-                <p:tabView>
+                <p:tabView id="tabContainer">
 
-                    <p:tab title="Dados pessoais">
+                    <p:tab id="pessoais" title="Dados pessoais">
                         <h:panelGrid columns="2">
 
                             <h:panelGroup>
                                 <div style="border: 0px solid red; width: 100px; position: relative">
-                                    <p:graphicImage library="images" name="avatar.png" style="height: 95px; margin-bottom: 5px; text-align: center"/>
+                                    <h:panelGroup id="fotoProfessor">
+                                        <p:graphicImage library="images" name="avatar.png" cache="false"
+                                                        style="height: 95px; margin-bottom: 5px; text-align: center"/>
+                                    </h:panelGroup>
 
                                     <p:fileUpload id="photoUpload" cancelLabel="Cancelar" dragDropSupport="true" fileLimit="1" label="Selecione" 
-                                                  mode="simple" uploadLabel="Enviar..." skinSimple="true" style="width: 100px; font-size: 12px"/>
+                                                  mode="simple" uploadLabel="Enviar..." skinSimple="true" style="width: 100px; font-size: 12px"
+                                                  update="fotoProfessor" auto="true"/>
                                 </div>
                             </h:panelGroup>
-
 
                             <h:panelGroup>
 
@@ -69,7 +71,7 @@
                         </h:panelGrid>
                     </p:tab>
 
-                    <p:tab title="Contato">
+                    <p:tab id="contato" title="Contato">
                         <h:panelGrid columns="2">
                             <p:outputLabel for="phone1" value="Celular: "/>
                             <p:inputText id="phone1" value="#{professorBean.professor.celular}" size="15" maxlength="15" class="phone"/>
@@ -85,7 +87,7 @@
                         </h:panelGrid>
                     </p:tab>
 
-                    <p:tab title="Endereço">
+                    <p:tab id="endereco" title="Endereço">
 
                         <h:panelGrid columns="2">
 
@@ -117,7 +119,7 @@
 
                     </p:tab>
 
-                    <p:tab title="Documentação">
+                    <p:tab id="documentacao" title="Documentação">
                         <h:panelGrid columns="2">
                             <p:outputLabel for="rg" value="RG: "/>
                             <p:inputText id="rg" value="#{professorBean.professor.rg}" size="13" maxlength="20"/>
@@ -127,7 +129,7 @@
                         </h:panelGrid>
                     </p:tab>
 
-                    <p:tab id="dados-academicos" title="Dados acadêmicos">
+                    <p:tab id="academico" title="Dados acadêmicos">
 
                         <h:panelGrid columns="2" cellpadding="0" cellspacing="2">
 
@@ -136,7 +138,7 @@
                                 <f:selectItem itemLabel="T20" itemValue="T20"/>
                                 <f:selectItem itemLabel="T40" itemValue="T40"/>
                             </p:selectOneRadio>
-                            
+
                             <p:outputLabel for="dedicacaoExclusiva" value="Dedicação exclusiva: "/>
                             <p:selectOneRadio id="dedicacaoExclusiva" value="#{professorBean.professor.dedicacaoExclusiva}">
                                 <f:selectItem id="de-yes" itemLabel="Sim" itemValue="SIM"/>
@@ -154,7 +156,7 @@
                                 <f:selectItem id="function-no" itemLabel="Não" itemValue="NAO"/>
                                 <!--<f:ajax execute="temFuncao" render="function-description" event="change"/>-->
                             </p:selectOneRadio>
-                            
+
                             <p:outputLabel for="funcionDescription" value="Desc. Função:"/>
                             <p:inputText id="funcionDescription" value="#{professorBean.professor.descricaoFuncao}" style="width: 271px"/>
 <!--                                    <h:panelGroup id="function-description" rendered="#{professorBean.professor.temFuncao eq 'SIM'}">
@@ -182,6 +184,7 @@
                         <p:commandButton value="Limpar campos" icon="fa fa-times-circle" update="formPesquisaProfessor" process="@this">
                             <p:resetInput target="formPesquisaProfessor"/>
                         </p:commandButton>
+
                         <p:commandButton id="relatorioProfessores" action="#{executaRelatorios.emitirRelatorioTodosProfessores}" immediate="true"
                                          ajax="false" icon="fa fa-file-pdf-o" value="Emitir relatorio" onclick="this.form.target = '_blank'"
                                          disabled="#{professorBean.listaProfessores.size() == 0}"/>

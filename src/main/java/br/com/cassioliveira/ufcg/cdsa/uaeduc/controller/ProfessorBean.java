@@ -44,7 +44,7 @@ public class ProfessorBean implements Serializable {
 
     @Getter
     private List<Professor> listaProfessores;
-
+    
     public ProfessorBean() {
         this.professor = new Professor();
         this.professorSelecionado = new Professor();
@@ -93,5 +93,4 @@ public class ProfessorBean implements Serializable {
     public void getLimpar() {
         this.professor = new Professor();
     }
-
 }
