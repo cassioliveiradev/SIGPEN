@@ -50,7 +50,7 @@ public class ExecutaRelatorios implements Serializable {
      * @throws net.sf.jasperreports.engine.JRException
      * @throws java.io.IOException
      */
-    public void emitirRelatorioPendenciasAbertas() throws SQLException, JRException, IOException {
+    public void pendenciasAbertas() throws SQLException, JRException, IOException {
         geradorRelatorios.gerarPdf("/pendencias_abertas.jasper", "Pendências ABERTAS.pdf", pendenciaService.pendencias(StatusPendencia.ABERTA));
     }
 
@@ -62,7 +62,7 @@ public class ExecutaRelatorios implements Serializable {
      * @throws net.sf.jasperreports.engine.JRException
      * @throws java.io.IOException
      */
-    public void emitirRelatorioPendenciasFechadas() throws SQLException, JRException, IOException {
+    public void pendenciasFechadas() throws SQLException, JRException, IOException {
         geradorRelatorios.gerarPdf("/pendencias_fechadas.jasper", "Pendências FECHADAS.pdf", pendenciaService.pendencias(StatusPendencia.FECHADA));
     }
 
@@ -73,7 +73,7 @@ public class ExecutaRelatorios implements Serializable {
      * @throws net.sf.jasperreports.engine.JRException
      * @throws java.io.IOException
      */
-    public void emitirRelatorioTodosProfessores() throws SQLException, JRException, IOException {
-        geradorRelatorios.gerarPdfDownload("/professores_cadastrados.jasper", "Professores cadastrados.pdf", professorService.todos());
+    public void professoresCadastrados() throws SQLException, JRException, IOException {
+        geradorRelatorios.gerarPdf("/professores_cadastrados.jasper", "Professores cadastrados.pdf", professorService.todos());
     }
 }

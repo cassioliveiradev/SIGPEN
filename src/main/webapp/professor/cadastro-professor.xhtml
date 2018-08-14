@@ -141,8 +141,8 @@
 
                             <p:outputLabel for="dedicacaoExclusiva" value="Dedicação exclusiva: "/>
                             <p:selectOneRadio id="dedicacaoExclusiva" value="#{professorBean.professor.dedicacaoExclusiva}">
-                                <f:selectItem id="de-yes" itemLabel="Sim" itemValue="SIM"/>
-                                <f:selectItem id="de-no" itemLabel="Não" itemValue="NAO"/>
+                                <f:selectItem  itemLabel="Sim" itemValue="true"/>
+                                <f:selectItem  itemLabel="Não" itemValue="false"/>
                             </p:selectOneRadio>
 
                             <p:outputLabel for="categoria" value="Categoria: "/>
@@ -152,8 +152,8 @@
 
                             <p:outputLabel for="temFuncao" value="Função?"/>
                             <p:selectOneRadio id="temFuncao" value="#{professorBean.professor.temFuncao}">
-                                <f:selectItem id="function-yes" itemLabel="Sim" itemValue="SIM"/>
-                                <f:selectItem id="function-no" itemLabel="Não" itemValue="NAO"/>
+                                <f:selectItem  itemLabel="Sim" itemValue="true"/>
+                                <f:selectItem  itemLabel="Não" itemValue="false"/>
                                 <!--<f:ajax execute="temFuncao" render="function-description" event="change"/>-->
                             </p:selectOneRadio>
 
@@ -185,7 +185,7 @@
                             <p:resetInput target="formPesquisaProfessor"/>
                         </p:commandButton>
 
-                        <p:commandButton id="relatorioProfessores" action="#{executaRelatorios.emitirRelatorioTodosProfessores}" immediate="true"
+                        <p:commandButton id="relatorioProfessores" action="#{executaRelatorios.professoresCadastrados}" immediate="true"
                                          ajax="false" icon="fa fa-file-pdf-o" value="Professores cadastrados" onclick="this.form.target = '_blank'"
                                          disabled="#{professorBean.listaProfessores.size() == 0}"/>
 

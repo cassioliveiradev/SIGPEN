@@ -21,7 +21,7 @@
                         <p:button value="Voltar para pendencias abertas" id="botaoTelaCadastro"  icon="fa fa-arrow-left" 
                                   outcome="/pendencia/pesquisa-pendencia"/>
 
-                        <p:commandButton id="relatorioPendenciasFechadas" action="#{executaRelatorios.emitirRelatorioPendenciasFechadas}" 
+                        <p:commandButton id="relatorioPendenciasFechadas" action="#{executaRelatorios.pendenciasFechadas}" 
                                          ajax="false" icon="fa fa-file-pdf-o" value="Gerar PDF" onclick="this.form.target = '_blank'"
                                          disabled="#{pendenciaBean.pendenciasFechadas.size() == 0}"/>
                     </f:facet>
