@@ -30,32 +30,6 @@ import net.sf.jasperreports.engine.JRException;
 @ViewScoped
 public class ExecutaRelatorios implements Serializable {
 
-//    @Inject
-//    private FacesContext facesContext;
-//
-//    @Inject
-//    private HttpServletResponse response;
-//
-//    @Inject
-//    private EntityManager entityManager;
-//
-//    /**
-//     * Emite um relatório com todos as pendências em que o status esteja 'ABERTO'
-//     */
-//    public void emitirRelatorioPendenciasAbertas() {
-//        Map<String, Object> parametros = new HashMap<>();
-//        String logo = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/resources/images/ufcg-central-200.png");
-//        parametros.put("logo", logo);
-//
-//        GeraRelatorios geraRelatorios = new GeraRelatorios("/relatorio_pendencias_abertas.jasper",
-//                this.response, parametros, "Pendências abertas.pdf");
-//
-//        Session session = entityManager.unwrap(Session.class);
-//        session.doWork(geraRelatorios);
-//
-//        facesContext.responseComplete();
-//    }
-    
     private final GeraRelatorios geradorRelatorios = new GeraRelatorios();
 
     @Inject
@@ -77,7 +51,7 @@ public class ExecutaRelatorios implements Serializable {
      * @throws java.io.IOException
      */
     public void emitirRelatorioPendenciasAbertas() throws SQLException, JRException, IOException {
-        geradorRelatorios.gerarPdf("/relatorio_pendencias_abertas.jasper", "Relatório de pendências abertas.pdf", pendenciaService.pendencias(StatusPendencia.ABERTA));
+        geradorRelatorios.gerarPdf("/pendencias_abertas.jasper", "Pendências ABERTAS.pdf", pendenciaService.pendencias(StatusPendencia.ABERTA));
     }
 
     /**
@@ -89,7 +63,7 @@ public class ExecutaRelatorios implements Serializable {
      * @throws java.io.IOException
      */
     public void emitirRelatorioPendenciasFechadas() throws SQLException, JRException, IOException {
-        geradorRelatorios.gerarPdf("/relatorio_pendencias_fechadas.jasper", "Relatório de pendências fechadas.pdf", pendenciaService.pendencias(StatusPendencia.FECHADA));
+        geradorRelatorios.gerarPdf("/pendencias_fechadas.jasper", "Pendências FECHADAS.pdf", pendenciaService.pendencias(StatusPendencia.FECHADA));
     }
 
     /**
@@ -100,6 +74,6 @@ public class ExecutaRelatorios implements Serializable {
      * @throws java.io.IOException
      */
     public void emitirRelatorioTodosProfessores() throws SQLException, JRException, IOException {
-        geradorRelatorios.gerarPdfDownload("/relatorio_professores_cadastrados.jasper", "Relatorio de professores cadastrados.pdf", professorService.todos());
+        geradorRelatorios.gerarPdfDownload("/professores_cadastrados.jasper", "Professores cadastrados.pdf", professorService.todos());
     }
 }

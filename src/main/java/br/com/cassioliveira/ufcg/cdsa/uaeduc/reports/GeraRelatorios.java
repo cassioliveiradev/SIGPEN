@@ -3,7 +3,6 @@ package br.com.cassioliveira.ufcg.cdsa.uaeduc.reports;
 import br.com.cassioliveira.ufcg.cdsa.uaeduc.model.Pendencia;
 import br.com.cassioliveira.ufcg.cdsa.uaeduc.model.Professor;
 import br.com.cassioliveira.ufcg.cdsa.uaeduc.util.jsf.FacesUtil;
-import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -33,47 +32,52 @@ public class GeraRelatorios {
     public void gerarPdfDownload(String jasperFileName, String pdfFileName, List<Professor> dados) throws JRException, IOException {
 
         Map<String, Object> parametros = new HashMap<>();
-        String logo = FacesUtil.caminhoContexto("/resources/images/ufcg-central-200.png");
-        parametros.put("logo", logo);
+        String ufcg = FacesUtil.caminhoContexto("/resources/images/ufcg.png");
+        String cdsa = FacesUtil.caminhoContexto("/resources/images/cdsa.png");
+        parametros.put("ufcg", ufcg);
+        parametros.put("cdsa", cdsa);
         String caminhoArquivoJasper = caminhoRelatorio() + jasperFileName;
-        File arquivoJasper = new File(caminhoArquivoJasper);
-        
+
         JasperPrint jasperPrint = JasperFillManager.fillReport(caminhoArquivoJasper, parametros, new JRBeanCollectionDataSource(dados));
         HttpServletResponse response = (HttpServletResponse) FacesUtil.responseHTTP();
-        
+        response.setContentType("application/pdf");
+        response.setHeader("Content-Disposition", "inline; filename=".concat(pdfFileName));
+
         try (ServletOutputStream stream = response.getOutputStream()) {
             JasperExportManager.exportReportToPdfStream(jasperPrint, stream);
-            
+
             stream.flush();
         }
         FacesContext.getCurrentInstance().responseComplete();
     }
-    
+
     public void gerarPdf(String jasperFileName, String pdfFileName, List<Pendencia> dados) throws JRException, IOException {
 
         Map<String, Object> parametros = new HashMap<>();
-        String logo = FacesUtil.caminhoContexto("/resources/images/ufcg-central-200.png");
-        parametros.put("logo", logo);
+        String ufcg = FacesUtil.caminhoContexto("/resources/images/ufcg.png");
+        String cdsa = FacesUtil.caminhoContexto("/resources/images/cdsa.png");
+        parametros.put("ufcg", ufcg);
+        parametros.put("cdsa", cdsa);
         String caminhoArquivoJasper = caminhoRelatorio() + jasperFileName;
-        File arquivoJasper = new File(caminhoArquivoJasper);
-        
+
         JasperPrint jasperPrint = JasperFillManager.fillReport(caminhoArquivoJasper, parametros, new JRBeanCollectionDataSource(dados));
         HttpServletResponse response = (HttpServletResponse) FacesUtil.responseHTTP();
-        
+        response.setContentType("application/pdf");
+        response.setHeader("Content-Disposition", "inline; filename=".concat(pdfFileName));
+
         try (ServletOutputStream stream = response.getOutputStream()) {
             JasperExportManager.exportReportToPdfStream(jasperPrint, stream);
-            
+
             stream.flush();
         }
         FacesContext.getCurrentInstance().responseComplete();
     }
-    
+
 //    ServletOutputStream stream = response.getOutputStream();
 //        JasperExportManager.exportReportToPdfStream(jasperPrint, stream);
 //        
 //        stream.flush();
 //        stream.close();
-
 //            Map<String, Object> parametros = new HashMap<>();
 //            String logo = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/resources/images/ufcg-central-200.png");
 //            parametros.put("logo", logo);

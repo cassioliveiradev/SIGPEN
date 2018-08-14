@@ -176,7 +176,7 @@
                 <p:toolbar>
                     <f:facet name="left">
                         <p:commandButton style="font-size: 13px; margin-left: 5px; vertical-align: middle" value="Salvar" action="#{professorBean.salvar}" 
-                                         update="formPesquisaProfessor datatablePesquisaProfessor" icon="ui-icon ui-icon-disk" id="botaoSalvar">
+                                         update="formPesquisaProfessor datatablePesquisaProfessor" icon="fa fa-save" id="botaoSalvar">
                         </p:commandButton>
                     </f:facet>
 
@@ -186,7 +186,7 @@
                         </p:commandButton>
 
                         <p:commandButton id="relatorioProfessores" action="#{executaRelatorios.emitirRelatorioTodosProfessores}" immediate="true"
-                                         ajax="false" icon="fa fa-file-pdf-o" value="Emitir relatorio" onclick="this.form.target = '_blank'"
+                                         ajax="false" icon="fa fa-file-pdf-o" value="Professores cadastrados" onclick="this.form.target = '_blank'"
                                          disabled="#{professorBean.listaProfessores.size() == 0}"/>
 
                     </f:facet>

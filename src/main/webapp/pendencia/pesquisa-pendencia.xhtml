@@ -25,7 +25,7 @@
                                   outcome="/pendencia/pendencias-fechadas"/>
 
                         <p:commandButton id="relatorioPendencias" action="#{executaRelatorios.emitirRelatorioPendenciasAbertas}" 
-                                         ajax="false" icon="fa fa-file-pdf-o" value="Emitir relatorio" onclick="this.form.target = '_blank'"
+                                         ajax="false" icon="fa fa-file-pdf-o" value="Gerar PDF" onclick="this.form.target = '_blank'"
                                          disabled="#{pendenciaBean.pendenciasAbertas.size() == 0}"/>
                     </f:facet>
                 </p:toolbar>
