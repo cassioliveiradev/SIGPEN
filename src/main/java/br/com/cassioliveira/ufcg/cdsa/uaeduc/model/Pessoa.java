@@ -46,7 +46,7 @@ public class Pessoa implements Serializable {
     @Column(name = "nome", nullable = false, length = 200)
     private String nome;
 
-    @Column(name = "matricula", length = 10)
+    @Column(name = "matricula", length = 15)
     private String matricula;
 
     @Column(name = "nome_social", length = 100)

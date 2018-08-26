@@ -14,9 +14,9 @@ import javax.transaction.Transactional;
  * @author Cássio Oliveira <cassio@cassioliveira.com.br>
  */
 public class ProfessorService implements Serializable {
-
+    
     public static final long serialVersionUID = 1L;
-
+    
     @Inject
     private Professores professores;
 
@@ -31,14 +31,17 @@ public class ProfessorService implements Serializable {
 //        professor.setData(new DateTimeUtilBean().getDateToday());
         this.professores.salvar(professor);
     }
-
+    
     @Transactional
     public void editar(Professor professor) {
+        if (professor.getMatricula() == null) {
+            professor.setMatricula("0000000");
+        }
         if (professor.getEndereco().getEstado() == null) {
             professor.getEndereco().setEstado(Estados.PB);
             this.professores.salvar(professor);
         }
-            
+        
         this.professores.editar(professor);
     }
 
@@ -88,5 +91,5 @@ public class ProfessorService implements Serializable {
     public void checaCampoDuplicado(String campo, Object valor, Long id, Professor professor) {
         professores.checaCampoDuplicado(campo, valor, null, professor);
     }
-
+    
 }
