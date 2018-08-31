@@ -15,4 +15,11 @@ public class Professores extends Generico<Professor> implements Serializable {
         super(Professor.class);
     }
 
+//    public Professor localizaProfessor(Long id) {
+//        Professor professor = new Professor();
+//        String nomeProfessor = getEntityManager().createNativeQuery("SELECT pessoa.nome FROM professor,pessoa WHERE pessoa.id=professor.id AND professor.id=:id").setParameter("id", id).toString();
+//        professor.setNome(nomeProfessor);
+//        return professor;
+//    }
+
 }

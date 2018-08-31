@@ -40,6 +40,12 @@ public class Professor extends Pessoa implements Serializable {
     
     @Column(name = "dedicacao_exclusiva")
     private boolean dedicacaoExclusiva;
+    
+    @Column(name = "classe", length = 50)
+    private String classe;
+    
+    @Column(name = "nivel", length = 50)
+    private String nivel;
 
     @CPF
     @Column(name = "cpf", unique = true)

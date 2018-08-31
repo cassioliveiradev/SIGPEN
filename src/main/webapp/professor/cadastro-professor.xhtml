@@ -133,6 +133,11 @@
 
                         <h:panelGrid columns="2" cellpadding="0" cellspacing="2">
 
+                            <p:outputLabel for="categoria" value="Categoria: "/>
+                            <p:selectOneRadio id="categoria" value="#{professorBean.professor.categoria}">
+                                <f:selectItems var="categoria" itemLabel="#{categoria.description}" itemValue="#{categoria}" value="#{professorBean.categorias}"/>
+                            </p:selectOneRadio>
+
                             <p:outputLabel for="regimeTrabalho" value="Carga horária: "/>
                             <p:selectOneRadio id="regimeTrabalho" value="#{professorBean.professor.regimeTrabalho}">
                                 <f:selectItem itemLabel="T20" itemValue="T20"/>
@@ -145,12 +150,7 @@
                                 <f:selectItem  itemLabel="Não" itemValue="false"/>
                             </p:selectOneRadio>
 
-                            <p:outputLabel for="categoria" value="Categoria: "/>
-                            <p:selectOneRadio id="categoria" value="#{professorBean.professor.categoria}">
-                                <f:selectItems var="categoria" itemLabel="#{categoria.description}" itemValue="#{categoria}" value="#{professorBean.categorias}"/>
-                            </p:selectOneRadio>
-
-                            <p:outputLabel for="temFuncao" value="Função?"/>
+                            <p:outputLabel for="temFuncao" value="Tem função?"/>
                             <p:selectOneRadio id="temFuncao" value="#{professorBean.professor.temFuncao}">
                                 <f:selectItem  itemLabel="Sim" itemValue="true"/>
                                 <f:selectItem  itemLabel="Não" itemValue="false"/>
@@ -158,12 +158,18 @@
                             </p:selectOneRadio>
 
                             <p:outputLabel for="funcionDescription" value="Desc. Função:"/>
-                            <p:inputText id="funcionDescription" value="#{professorBean.professor.descricaoFuncao}" style="width: 271px"/>
+                            <p:inputText id="funcionDescription" value="#{professorBean.professor.descricaoFuncao}" style="width: 273px"/>
 <!--                                    <h:panelGroup id="function-description" rendered="#{professorBean.professor.temFuncao eq 'SIM'}">
                         </h:panelGroup>-->
+                            
+                            <p:outputLabel for="classe" value="Classe:"/>
+                            <p:inputText id="classe" value="#{professorBean.professor.classe}" style="width: 273px"/>
+                            
+                            <p:outputLabel for="nivel" value="Nível:"/>
+                            <p:spinner id="nivel" value="#{professorBean.professor.nivel}" size="30" min="0" decimalPlaces="0" style="text-align: left"/>
 
                             <p:outputLabel for="observations" value="Observações: " style="margin-right: 17px;"/>
-                            <p:inputTextarea id="observations" rows="3" cols="32" maxlength="255" value="#{professorBean.professor.observacoes}"
+                            <p:inputTextarea id="observations" rows="3" cols="33" maxlength="255" value="#{professorBean.professor.observacoes}"
                                              autoResize="false" counter="counterDescription" counterTemplate="{0} caracteres restantes"/>
                             <p:outputLabel/>
                             <p:outputLabel id="counterDescription" style="font-size: 12px;"/>
@@ -230,6 +236,13 @@
                             <f:param  name="professor" value="#{professor.id}"/>
                             <p:tooltip for="botaoEditar" value="Edita o registro selecionado"/>
                         </p:button>
+
+<!--                        <a href="/SIGPEN/portaria/cadastro-portaria.xhtml?professor=#{professor.id}" title="Gerenciar">
+                            <i class="fa fa-edit"/>
+                        </a>-->
+ 
+<!--                        <p:commandButton id="botaoVisualizar" title="Portarias" icon="fa fa-external-link" style="font-size: 10px"
+                                         action="#{professorBean.professorEscolhido}"/>-->
 
                         <p:commandButton id="botaoExcluir" title="Excluir" icon="ui-icon ui-icon-trash" style="font-size: 10px"
                                          action="#{professorBean.delete}" process="datatablePesquisaProfessor" update="datatablePesquisaProfessor">

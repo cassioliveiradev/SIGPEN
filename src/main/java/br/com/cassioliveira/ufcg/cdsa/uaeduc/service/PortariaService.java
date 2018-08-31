@@ -1,9 +1,8 @@
 package br.com.cassioliveira.ufcg.cdsa.uaeduc.service;
 
-import br.com.cassioliveira.ufcg.cdsa.uaeduc.enumeration.Estados;
 import br.com.cassioliveira.ufcg.cdsa.uaeduc.exception.NegocioException;
-import br.com.cassioliveira.ufcg.cdsa.uaeduc.model.Professor;
-import br.com.cassioliveira.ufcg.cdsa.uaeduc.repository.Professores;
+import br.com.cassioliveira.ufcg.cdsa.uaeduc.model.Portaria;
+import br.com.cassioliveira.ufcg.cdsa.uaeduc.repository.Portarias;
 import java.io.Serializable;
 import java.util.List;
 import javax.inject.Inject;
@@ -13,47 +12,41 @@ import javax.transaction.Transactional;
  *
  * @author Cássio Oliveira <cassio@cassioliveira.com.br>
  */
-public class ProfessorService implements Serializable {
-    
+public class PortariaService implements Serializable {
+
     public static final long serialVersionUID = 1L;
-    
+
     @Inject
-    private Professores professores;
+    private Portarias portarias;
+
+    public PortariaService() {
+    }
 
     /**
      * Método utilizado para salvar um novo cadastro no banco de dados ou editar
      * um cadastro existente.
      *
-     * @param professor
+     * @param portaria
      */
     @Transactional
-    public void salvar(Professor professor) {
-//        professor.setData(new DateTimeUtilBean().getDateToday());
-        this.professores.salvar(professor);
+    public void salvar(Portaria portaria) {
+        this.portarias.salvar(portaria);
     }
-    
+
     @Transactional
-    public void editar(Professor professor) {
-        if (professor.getMatricula() == null) {
-            professor.setMatricula("0000000");
-        }
-        if (professor.getEndereco().getEstado() == null) {
-            professor.getEndereco().setEstado(Estados.PB);
-            this.professores.salvar(professor);
-        }
-        
-        this.professores.editar(professor);
+    public void editar(Portaria portaria) {
+        this.portarias.editar(portaria);
     }
 
     /**
      * Método utilizado para remover um cadastro do banco de dados.
      *
-     * @param professor
+     * @param portaria
      * @throws NegocioException
      */
     @Transactional
-    public void excluir(Professor professor) throws NegocioException {
-        professores.excluir(porId(professor.getId()));
+    public void excluir(Portaria portaria) throws NegocioException {
+        portarias.excluir(porId(portaria.getId()));
     }
 
     /**
@@ -63,8 +56,8 @@ public class ProfessorService implements Serializable {
      * @param id
      * @return
      */
-    public Professor porId(Long id) {
-        return professores.porId(id);
+    public Portaria porId(Long id) {
+        return portarias.porId(id);
     }
 
     /**
@@ -74,8 +67,8 @@ public class ProfessorService implements Serializable {
      *
      * @return
      */
-    public List<Professor> todos() {
-        return professores.todos();
+    public List<Portaria> todas() {
+        return portarias.todos();
     }
 
     /**
@@ -86,14 +79,10 @@ public class ProfessorService implements Serializable {
      * @param campo
      * @param valor
      * @param id
-     * @param professor
+     * @param portaria
      */
-    public void checaCampoDuplicado(String campo, Object valor, Long id, Professor professor) {
-        professores.checaCampoDuplicado(campo, valor, null, professor);
+    public void checaCampoDuplicado(String campo, Object valor, Long id, Portaria portaria) {
+        portarias.checaCampoDuplicado(campo, valor, null, portaria);
     }
 
-//    public Professor localizaProfessor(Long id) {
-//        return professores.localizaProfessor(id);
-//    }
-    
 }

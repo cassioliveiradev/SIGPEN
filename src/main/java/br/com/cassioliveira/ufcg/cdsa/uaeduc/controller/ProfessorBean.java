@@ -9,8 +9,9 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.enterprise.inject.Model;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,7 +19,8 @@ import lombok.Setter;
  *
  * @author Cássio Oliveira <cassio@cassioliveira.com.br>
  */
-@Model
+@Named
+@ViewScoped
 public class ProfessorBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -44,7 +46,7 @@ public class ProfessorBean implements Serializable {
 
     @Getter
     private List<Professor> listaProfessores;
-    
+
     public ProfessorBean() {
         this.professor = new Professor();
         this.professorSelecionado = new Professor();
@@ -93,4 +95,14 @@ public class ProfessorBean implements Serializable {
     public void getLimpar() {
         this.professor = new Professor();
     }
+
+//    public void professorEscolhido() {
+//        professor = professorService.porId(professor.getId());
+//        Portaria portaria = new Portaria();
+//        portaria.setProfessor(professor);
+//        FacesUtil.redirecionaPara("/SIGPEN/portaria/cadastro-portaria.xhtml");
+//        System.out.println("CONSULTA: "+professor.getNome());
+//        System.out.println("NOME APLICADO: "+portaria.getProfessor().getNome());
+//    }
+
 }
