@@ -1,104 +1,140 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                xmlns:f="http://xmlns.jcp.org/jsf/core"
-                template="/WEB-INF/templates/Layout.xhtml"
-                xmlns:p="http://primefaces.org/ui"
-                xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	template="/WEB-INF/templates/Layout.xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
-    <ui:define name="content">
-        <h:form id="formPesquisaPendencia"  style="margin-top: 80px">
-            <p:fieldset id="fieldsetPesquisaPendencias" legend="Consulta de pendências">
+	<ui:define name="content">
+		<h:form id="formPesquisaPendencia" style="margin-top: 80px">
+			<p:fieldset id="fieldsetPesquisaPendencias"
+				legend="Consulta de pendências">
 
-                <p:focus context="fieldsetPesquisaPendencias"/>
+				<p:focus context="fieldsetPesquisaPendencias" />
 
-                <p:messages id="mensagens" autoUpdate="true" closable="true"/>
+				<p:messages id="mensagens" autoUpdate="true" closable="true" />
 
-                <p:toolbar >
-                    <f:facet name="right">
-                        <p:button value="Nova pendência" id="botaoNovaPendencia"  icon="fa fa-plus" 
-                                  outcome="/pendencia/cadastro-pendencia"/>
+				<p:toolbar>
+					<f:facet name="right">
+						<p:button value="Nova pendência" id="botaoNovaPendencia"
+							icon="fa fa-plus" outcome="/pendencia/cadastro-pendencia" />
 
-                        <p:button value="Ver pendências fechadas" id="botaoVerPendenciaFechada"  icon="fa fa-search" 
-                                  outcome="/pendencia/pendencias-fechadas"/>
+						<p:button value="Ver pendências fechadas"
+							id="botaoVerPendenciaFechada" icon="fa fa-search"
+							outcome="/pendencia/pendencias-fechadas" />
 
-                        <p:commandButton id="relatorioPendencias" action="#{executaRelatorios.pendenciasAbertas}" 
-                                         ajax="false" icon="fa fa-file-pdf-o" value="Gerar PDF" onclick="this.form.target = '_blank'"
-                                         disabled="#{pendenciaBean.pendenciasAbertas.size() == 0}"/>
-                    </f:facet>
-                </p:toolbar>
+						<p:commandButton id="relatorioPendencias"
+							action="#{executaRelatorios.pendenciasAbertas}" ajax="false"
+							icon="fa fa-file-pdf-o" value="Gerar PDF"
+							onclick="this.form.target = '_blank'"
+							disabled="#{pendenciaBean.pendenciasAbertas.size() == 0}" />
+					</f:facet>
+				</p:toolbar>
 
-                <p:dataTable id="datatablePesquisaPendencia" var="pendencia" value="#{pendenciaBean.pendenciasAbertas}"
-                             paginatorAlwaysVisible="false" style="margin-top: 1px; " rows="10" reflow="true"
-                             paginatorPosition="bottom" emptyMessage="Nenhum registro encontrado" paginator="true" widgetVar="pesquisaPendencia"
-                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} 
-                             {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,20,50,100"
-                             scrollable="true" scrollRows="10" scrollHeight="290">
+				<p:dataTable id="datatablePesquisaPendencia" var="pendencia"
+					value="#{pendenciaBean.pendenciasAbertas}"
+					paginatorAlwaysVisible="false" style="margin-top: 1px; " rows="10"
+					reflow="true" paginatorPosition="bottom"
+					emptyMessage="Nenhum registro encontrado" paginator="true"
+					widgetVar="pesquisaPendencia"
+					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} 
+                             {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,20,50,100" scrollable="true"
+					scrollRows="10" scrollHeight="290">
 
-                    <f:facet name="header">
-                        <p:outputPanel id="panelFiltroPendencia">
-                            <p:inputText id="globalFilter" onkeyup="PF('pesquisaPendencia').filter()" style="width:300px" placeholder="Pesquise na tabela..."/>
-                        </p:outputPanel>
-                    </f:facet>
+					<f:facet name="header">
+						<p:outputPanel id="panelFiltroPendencia">
+							<p:inputText id="globalFilter"
+								onkeyup="PF('pesquisaPendencia').filter()" style="width:300px"
+								placeholder="Pesquise na tabela..." />
+						</p:outputPanel>
+					</f:facet>
 
-                    <p:column headerText="Pendência" width="40%" filterMatchMode="contains" filterBy="#{pendencia.descricao}" filterStyle="width: 300px; display:none">
-                        <h:outputText id="nome" value="#{pendencia.descricao}"/>
-                    </p:column>
+					<p:column headerText="Pendência" width="40%"
+						filterMatchMode="contains" filterBy="#{pendencia.descricao}"
+						filterStyle="width: 300px; display:none">
+						<h:outputText id="nome" value="#{pendencia.descricao}" />
+					</p:column>
 
-                    <p:column headerText="Localização" width="20%" filterMatchMode="contains" filterBy="#{pendencia.localizacaoFisica}" filterStyle="width: 300px; display:none">
-                        <p:outputLabel value="#{pendencia.localizacaoFisica.descricao}" rendered="#{pendencia.localizacaoFisica ne 'OUTRO'}"/>
-                        <p:outputLabel value="#{pendencia.outraLocalizacao}" rendered="#{pendencia.localizacaoFisica eq 'OUTRO'}"/>
-                    </p:column>
+					<p:column headerText="Localização" width="20%"
+						filterMatchMode="contains"
+						filterBy="#{pendencia.localizacaoFisica}"
+						filterStyle="width: 300px; display:none">
+						<p:outputLabel value="#{pendencia.localizacaoFisica.descricao}"
+							rendered="#{pendencia.localizacaoFisica ne 'OUTRO'}" />
+						<p:outputLabel value="#{pendencia.outraLocalizacao}"
+							rendered="#{pendencia.localizacaoFisica eq 'OUTRO'}" />
+					</p:column>
 
-                    <p:column headerText="Professor" width="25%" filterMatchMode="contains" filterBy="#{pendencia.professor}" filterStyle="width: 300px; display:none">
-                        <p:outputLabel value="#{pendencia.professor}"/>
-                    </p:column>
+					<p:column headerText="Professor" width="25%"
+						filterMatchMode="contains" filterBy="#{pendencia.professor}"
+						filterStyle="width: 300px; display:none">
+						<p:outputLabel value="#{pendencia.professor}" />
+					</p:column>
 
-                    <p:column headerText="Recebimento" width="10%" filterMatchMode="contains" filterBy="#{pendencia.dataRecebimentoSecretaria}" filterStyle="width: 300px; display:none"
-                              style="text-align: center">
-                        <p:outputLabel value="#{pendencia.dataRecebimentoSecretaria}">
-                            <f:convertDateTime type="date" locale="pt_BR" pattern="dd/MM/yyyy"/>
-                        </p:outputLabel>
-                    </p:column>
+					<p:column headerText="Recebimento" width="10%"
+						filterMatchMode="contains"
+						filterBy="#{pendencia.dataRecebimentoSecretaria}"
+						filterStyle="width: 300px; display:none"
+						style="text-align: center">
+						<p:outputLabel value="#{pendencia.dataRecebimentoSecretaria}">
+							<f:convertDateTime type="date" locale="pt_BR"
+								pattern="dd/MM/yyyy" />
+						</p:outputLabel>
+					</p:column>
 
-                    <p:column id="acoes" style="text-align: center" width="8%">
+					<p:column id="acoes" style="text-align: center" width="8%">
 
-                        <p:button id="botaoVisualizar" title="Visualizar" icon="fa fa-external-link" style="font-size: 10px" outcome="/pendencia/visualizar-pendencia">
-                            <f:param  name="pendencia" value="#{pendencia.id}"/>
-                            <p:tooltip for="botaoVisualizar" value="Visualizar pendencia completa"/>
-                        </p:button>
+						<p:button id="botaoVisualizar" title="Visualizar"
+							icon="fa fa-external-link" style="font-size: 10px"
+							outcome="/pendencia/visualizar-pendencia">
+							<f:param name="pendencia" value="#{pendencia.id}" />
+							<p:tooltip for="botaoVisualizar"
+								value="Visualizar pendencia completa" />
+						</p:button>
 
-                        <!--                        <p:button id="botaoEditar" title="Editar" icon="fa fa-edit" style="font-size: 10px" outcome="/pendencia/editar-pendencia">
+						<!--                        <p:button id="botaoEditar" title="Editar" icon="fa fa-edit" style="font-size: 10px" outcome="/pendencia/editar-pendencia">
                                                     <f:param  name="pendencia" value="#{pendencia.id}"/>
                                                     <p:tooltip for="botaoEditar" value="Edita o registro selecionado"/>
                                                 </p:button>-->
 
-<!--                        <p:commandButton id="botaoBaixarPendencia" title="Dar baixa na pendência" icon="fa fa-download" style="font-size: 10px" 
-                                         oncomplete="PF('dialogBaixaPendencia').show()">
-                            <f:param  name="pendencia" value="#{pendencia.id}"/>
-                            <p:tooltip for="botaoBaixarPendencia" value="Baixar pendência escolhida"/>
-                        </p:commandButton>-->
-                        
-                        <p:button id="botaoBaixarPendencia" title="Dar baixa na pendência" icon="fa fa-download" style="font-size: 10px" outcome="/pendencia/dar-baixa-pendencia">
-                            <f:param  name="pendencia" value="#{pendencia.id}"/>
-                            <p:tooltip for="botaoBaixarPendencia" value="Baixar pendência"/>
-                        </p:button>
-                    </p:column>
+						<p:commandButton id="botaoBaixarPendencia"
+							title="Dar baixa na pendência" icon="fa fa-download"
+							style="font-size: 10px"
+							onclick="PF('dialogBaixaPendencia').show(); return 0;">
+							<f:param name="pendencia" value="#{pendencia.id}" />
+							<p:tooltip for="botaoBaixarPendencia"
+								value="Baixar pendência escolhida" />
+						</p:commandButton>
 
-                    <f:facet name="footer">
+						<!-- 						<p:button id="botaoBaixarPendencia" title="Dar baixa na pendência" -->
+						<!-- 							icon="fa fa-download" style="font-size: 10px" -->
+						<!-- 							outcome="/pendencia/dar-baixa-pendencia"> -->
+						<!-- 							<f:param name="pendencia" value="#{pendencia.id}" /> -->
+						<!-- 							<p:tooltip for="botaoBaixarPendencia" value="Baixar pendência" /> -->
+						<!-- 						</p:button> -->
+					</p:column>
+
+					<f:facet name="footer">
                         Há #{fn:length(pendenciaBean.pendenciasAbertas)} #{fn:length(pendenciaBean.pendenciasAbertas) == 1 ? "pendência" : "pendências"} em aberto.
                     </f:facet>
 
-                </p:dataTable>
-            </p:fieldset>
-            
-<!--            <p:dialog widgetVar="dialogBaixaPendencia" modal="true" maximizable="false" resizable="false" responsive="true" >
-                <ui:include src="dar-baixa-pendencia.xhtml"/>
-            </p:dialog>-->
-            
-        </h:form>
-    </ui:define>
+				</p:dataTable>
+			</p:fieldset>
+
+			<!-- 			<p:dialog widgetVar="dialogBaixaPendencia" modal="true" visible="true"> -->
+			<p:dialog id="dialogAtendimento" draggable="false" closable="true"
+				responsive="true" width="750" height="350" hideEffect="fade"
+				showEffect="fade" showHeader="true" widgetVar="dialogBaixaPendencia"
+				fitViewport="true" resizable="false" modal="true"
+				header="Baixa de pendência" closeOnEscape="true">
+				<ui:include src="dar-baixa-pendencia.xhtml" />
+			</p:dialog>
+
+		</h:form>
+	</ui:define>
 
 </ui:composition>
